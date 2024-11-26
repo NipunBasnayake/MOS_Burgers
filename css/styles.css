@@ -1,0 +1,51 @@
+body {
+    background-image: url('../images/LoginBg.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-container {
+    max-width: 900px;
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .login-image {
+    background-image: url('../images/LoginImage.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+  }
+  
+  .login-content {
+    padding: 30px;
+  }
+  
+  .login-content h1 {
+    color: #e63946;
+  }
+  
+  .btn-signin {
+    background-color: #28a745;
+    border: none;
+  }
+  
+  .btn-signin:hover {
+    background-color: #218838;
+  }
+  
+  .link-signup {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .link-signup:hover {
+    text-decoration: underline;
+  }
+  
