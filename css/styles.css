@@ -1,12 +1,11 @@
-html,body{
-  height: 100svh;
+html, body {
+  height: 100vh;
   margin: 0;
   padding: 0;
   position: relative;
 }
 
-body{
-  background-color: black, 0.5;
+body {
   background-image: url('../images/background.jpg');
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -15,7 +14,7 @@ body{
 
 body::before {
   content: '';
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -28,38 +27,52 @@ body::before {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-#MosBurger{
-  font-family: koulen;
+#loginDiv{
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+#MosBurger {
+  font-family: 'Koulen', sans-serif;
   font-size: 4rem;
   color: #EAA000;
 }
 
-#MOSpart{
+#MOSpart {
   color: #D32500;
 }
 
-#h2Welcome{
-  font-family: afacad;
+#h2Welcome {
+  font-family: 'Afacad', sans-serif;
   font-size: 2.5rem;
 }
 
-#p{
-  font-family: afacad;
+#p {
+  font-family: 'Afacad', sans-serif;
   font-size: 1.3rem;
 }
 
-#lbl{
-  font-family: afacad;
+#lbl {
+  font-family: 'Afacad', sans-serif;
 }
 
-#btnSignin{
+#btnSignin {
   background: #09AA29;
+  padding: 10px 30px;
+  border-radius: 10px; 
+  color: white;
+  border: none;
 }
 
-#btnSignin:hover{
+#btnSignin:hover {
   background: #04811d;
 }
 
@@ -69,3 +82,22 @@ body::before {
   font-weight: bold;
 }
 
+.custom-swal {
+  border-radius: 20px;
+}
+
+.custom-btn {
+  background-color: #09AA29;
+  color: white; 
+  font-size: 16px;
+  border-radius: 10px; 
+  padding: 10px 30px;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.custom-btn:hover {
+  background-color: #04811d; 
+  transform: scale(1.05);
+}

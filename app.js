@@ -2,7 +2,7 @@
 
 let userDetailsArray = [
     { userId: "admin", password: "Test@123" },
-    { userId: "user1", password: "user123" }
+    { userId: "user", password: "1234" }
 ]
 
 // ----------------- LOGIN -----------------
@@ -15,7 +15,11 @@ function login() {
         Swal.fire({
             icon: "info",
             title: "Missing Information",
-            text: "Please enter both UserID and Password"
+            text: "Please enter both UserID and Password",
+            customClass: {
+                popup: 'custom-swal',
+                confirmButton: 'custom-btn' 
+            }
         });
         return;
     }
@@ -26,8 +30,6 @@ function login() {
         if (element.userId === txtUserId) {
             if (element.password === txtPassword) {
                 loginSuccess = true;
-                alert("Login Success!");
-                window.location.href("home.html");
             }
         }
     });
@@ -36,7 +38,13 @@ function login() {
         Swal.fire({
             icon: "error",
             title: "Login Unsuccess",
-            text: "Please check your UserID & Password"
+            text: "Please check your UserID & Password",
+            customClass: {
+                popup: 'custom-swal',
+                confirmButton: 'custom-btn' 
+            }
         });
+    }else if (loginSuccess) {
+        window.location.href ="home.html";
     }
 }
