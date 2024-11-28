@@ -1,51 +1,71 @@
-body {
-    background-image: url('../images/LoginBg.jpg');
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .login-container {
-    max-width: 900px;
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  }
-  
-  .login-image {
-    background-image: url('../images/LoginImage.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 100%;
-  }
-  
-  .login-content {
-    padding: 30px;
-  }
-  
-  .login-content h1 {
-    color: #e63946;
-  }
-  
-  .btn-signin {
-    background-color: #28a745;
-    border: none;
-  }
-  
-  .btn-signin:hover {
-    background-color: #218838;
-  }
-  
-  .link-signup {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .link-signup:hover {
-    text-decoration: underline;
-  }
-  
+html,body{
+  height: 100svh;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+body{
+  background-color: black, 0.5;
+  background-image: url('../images/background.jpg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: -1;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#MosBurger{
+  font-family: koulen;
+  font-size: 4rem;
+  color: #EAA000;
+}
+
+#MOSpart{
+  color: #D32500;
+}
+
+#h2Welcome{
+  font-family: afacad;
+  font-size: 2.5rem;
+}
+
+#p{
+  font-family: afacad;
+  font-size: 1.3rem;
+}
+
+#lbl{
+  font-family: afacad;
+}
+
+#btnSignin{
+  background: #09AA29;
+}
+
+#btnSignin:hover{
+  background: #04811d;
+}
+
+.sign-up-link {
+  color: #09AA29;
+  text-decoration: none;
+  font-weight: bold;
+}
+
