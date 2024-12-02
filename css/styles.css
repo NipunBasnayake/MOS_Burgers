@@ -1,8 +1,13 @@
-html, body {
-  height: 100vh;
+*{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
   position: relative;
+  font-family: Arial, sans-serif;
 }
 
 body {
@@ -27,14 +32,14 @@ body::before {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-#loginDiv{
+#loginDiv {
   border-radius: 30px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   overflow: hidden;
@@ -67,9 +72,10 @@ body::before {
 #btnSignin {
   background: #09AA29;
   padding: 10px 30px;
-  border-radius: 10px; 
+  border-radius: 10px;
   color: white;
   border: none;
+  cursor: pointer;
 }
 
 #btnSignin:hover {
@@ -88,16 +94,17 @@ body::before {
 
 .custom-btn {
   background-color: #09AA29;
-  color: white; 
+  color: white;
   font-size: 16px;
-  border-radius: 10px; 
+  border-radius: 10px;
   padding: 10px 30px;
   border: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .custom-btn:hover {
-  background-color: #04811d; 
+  background-color: #04811d;
   transform: scale(1.05);
 }

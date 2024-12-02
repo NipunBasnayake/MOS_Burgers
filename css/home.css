@@ -1,0 +1,156 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.sidebar {
+    background-color: #eeeeee;
+    height: 100vh;
+    padding: 20px 10px;
+}
+
+.sidebar input[type="button"] {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #dddddd;
+    cursor: pointer;
+    width: 100%;
+}
+
+.sidebar input[type="button"]:hover {
+    background-color: #cccccc;
+}
+
+.btn-with-icon {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.btn-with-icon i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.main-content {
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+}
+
+.main-content .btn {
+    margin-bottom: 10px;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+    height: 150px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.card-body {
+    padding: 10px;
+    background-color: #333333;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+}
+
+.pagination-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-buttons .btn {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+}
+
+#orderPlace {
+    background-color: #003366;
+    color: white;
+    height: 100vh;
+    padding: 20px;
+    border-left: 2px solid #dddddd;
+}
+
+#orderPlace h2 {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+#orderPlace .order-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#orderPlace .order-item button {
+    border: none;
+    background-color: #eeeeee;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#orderPlace .order-item button:hover {
+    background-color: #dddddd;
+}
+
+#orderPlace .order-item input[type="text"] {
+    width: 50px;
+    text-align: center;
+    margin: 0 5px;
+}
+
+#orderPlace .pay-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #444444;
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#orderPlace .pay-section .btn-pay {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#orderPlace .pay-section .btn-pay:hover {
+    background-color: #0056b3;
+}
