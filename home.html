@@ -78,49 +78,47 @@
                 </div>
             </div>
 
+
             <!-- Right Sidebar (Place Order) -->
             <div class="col-lg-3 col-md-3 col-sm-12 sidebar-right">
                 <h2 id="orderPlaceHeader">Place Order</h2>
                 <hr id="placeHr">
 
-                <!-- Order Items List -->
                 <div id="ordersFlow" class="orders-list">
-<!-- 
-                    <div class="order-item" id="order-item-${element.id}">
-                        <button class="btn-close" aria-label="Close" onclick="removeOrder('${element.id}')">&times;</button>
-                        <div class="order-item-details">
-                            <p class="item-name">${element.itemName}</p>
-                            <div class="quantity-controls">
-                                <input type="button" class="quantity-btn" value="-" onclick="decreaseQuantity('${element.id}')"/>
-                                <input type="text" class="output-area-${element.id}" value="1" readonly />
-                                <input type="button" class="quantity-btn" value="+" onclick="increaseQuantity('${element.id}')"/>
-                            </div>
-                            <p class="price-${element.id}">${element.price}</p>
-                        </div>
+
+                    <!-- <div class="order-item" id="order-item-${element.id}">
+                        <p class="item-name">Order Name</p> <p>|</p>
+                        <p class="item-qty">4</p> <p>|</p>
+                        <p class="price highlighted">LKR 1200</p> <p>|</p>
+                        <button class="btn-close" aria-label="Close" onclick="removeOrder('${element.id}')"></button>
                     </div> -->
 
                 </div>
 
-                <!-- Order Summary Section -->
-                <div class="orderSummery">
-                    <div class="d-flex justify-content-between p-3">
-                        <p><strong>Discount:</strong> 10%</p>
-                        <p id="discountPrice">$0</p>
-                    </div>
 
-                    <!-- Total -->
-                    <div class="orderTotal d-flex align-items-center justify-content-between p-3"
-                        onclick="yourFunction()">
-                        <h2 class="mb-0">Pay</h2>
-                        <h2 class="mb-0" id="totalPrice">$0</h2>
-                    </div>
+
+
+            <div class="order-summary">
+                <div class="d-flex justify-content-between p-3">
+                    <p><strong>Discount:</strong> <span id="discountPercent">10%</span></p>
+                    <p id="discountPrice">LKR 0</p>
+                </div>
+
+                <div class="order-total d-flex align-items-center justify-content-between p-3"
+                    onclick="handlePayment()">
+                    <h2 class="mb-0">Pay</h2>
+                    <h2 class="mb-0" id="totalPrice">LKR 0</h2>
                 </div>
             </div>
-
-
         </div>
+
+
+
+
+    </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

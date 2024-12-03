@@ -107,59 +107,68 @@ function loadDesserts() {
 loadAllItems();
 
 
+// ----------------- Add To Order -----------------
+
 let ordersArray = [];
 let ordersFlow = document.getElementById("ordersFlow");
 
 function addToOrder(index) {
-    let name = document.getElementById(`itemName-${index}`).innerText;
-    let price = document.getElementById(`itemPrice-${index}`).innerText;
-    
-    itemsList.forEach(element => {
-        if (name == element.itemName && !ordersArray.includes(element)) {
-            ordersArray.push(element);
+    console.log(index);
+
+    Swal.fire({
+        title: "Enter Quantity",
+        input: "number",
+        inputAttributes: {
+          min: 1,
+          value: 1
+        },
+        showCancelButton: true,
+        confirmButtonText: "Add Order",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const quantity = parseInt(result.value);
+      
+          if (quantity >= 1) {
+            let name = document.getElementById(`itemName-${index}`).innerText;
+            itemsList.forEach(element => {
+                if (name == element.itemName && !ordersArray.some(order => order.id === element.id)) {
+                    element.qty = quantity;
+                    ordersArray.push(element);
+                }
+            });
+            renderOrders();
+          } else {
+            Swal.fire({
+              title: "Invalid Quantity",
+              text: "Please enter a valid quantity (1 or greater).",
+              icon: "error"
+            });
+          }
         }
     });
+}
+
+function removeOrder(id) {
+    ordersArray = ordersArray.filter(order => order.id !== id);
     renderOrders();
 }
 
 function renderOrders() {
     let orderBody = ``;
 
-    ordersArray.forEach((element, index) => {
-    orderBody +=`
-        <div class="order-item" id="order-item-${element.id}">
-            <button class="btn-close" aria-label="Close" onclick="removeOrder('${element.id}')">&times;</button>
-            <div class="order-item-details">
-                <p class="item-name">${element.itemName}</p>
-                <div class="quantity-controls">
-                    <input type="button" class="quantity-btn" value="-" onclick="decreaseQuantity('${element.id}')"/>
-                    <input type="text" class="output-area-${element.id}" value="1" readonly />
-                    <input type="button" class="quantity-btn" value="+" onclick="increaseQuantity('${element.id}')"/>
-                </div>
-                <p class="price-${element.id}">${element.price}</p>
+    ordersArray.forEach((element) => {
+        let orderPrice = element.qty * element.price;
+        orderBody += `
+            <div class="order-item" id="order-item-${element.id}">
+                <p class="item-name">${element.itemName}</p> <p>|</p>
+                <p class="item-qty">${element.qty}</p> <p>|</p>
+                <p class="price highlighted">LKR ${orderPrice}</p> <p>|</p>
+                <button class="btn-close" aria-label="Close" onclick="removeOrder(${element.id})"></button>
             </div>
-        </div>`;
+        `;
     });
 
     ordersFlow.innerHTML = orderBody;
 }
 
-function increaseQuantity(index) {
-    let qtyField = document.getElementById(`output-area-${index}`);
-    let currentQty = parseInt(qtyField.value);
-    qtyField.value = currentQty + 1;
-}
-
-function decreaseQuantity(index) {
-    let qtyField = document.getElementById(`output-area-${index}`);
-    let currentQty = parseInt(qtyField.value);
-    if (currentQty > 1) {
-        qtyField.value = currentQty - 1;
-    }
-}
-
-function removeOrder(index) {
-    ordersArray.splice(index, 1);
-    renderOrders(); 
-}
 
