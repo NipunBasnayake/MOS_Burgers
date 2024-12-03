@@ -1,16 +1,3 @@
-// ----------------- Quantity Increment / Decrement -----------------
-
-let x = 1;
-function button1() {
-    document.getElementById('output-area').value = ++x;
-}
-function button2() {
-    if (x > 1) {
-        document.getElementById('output-area').value = --x;
-    }
-}
-
-
 // ----------------- Arrays -----------------
 
 let burgersArray = [];
@@ -18,14 +5,15 @@ let beveragesArray = [];
 let dessertsArray = [];
 
 itemsList.forEach(element => {
-    if(element.type == "Burger"){
+    if (element.type == "Burger") {
         burgersArray.push(element);
-    }else if (element.type == "Beverage") {
+    } else if (element.type == "Beverage") {
         beveragesArray.push(element);
-    }else if (element.type == "Dessert") {
+    } else if (element.type == "Dessert") {
         dessertsArray.push(element);
     }
 });
+
 
 // ----------------- Sorting Buttons -----------------
 
@@ -33,7 +21,7 @@ let allItems = ``;
 let scrollableDiv = document.getElementById("scrollableDiv");
 
 function loadAllItems() {
-    allItems = ''; 
+    allItems = '';
 
     itemsList.forEach((element, index) => {
         allItems += `
@@ -42,7 +30,7 @@ function loadAllItems() {
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
                         <h5 class="card-title" id="itemName-${index}">${element.itemName}</h5>
-                        <p class="card-text" id="itemPrice-${index}">${element.price}</p>
+                        <p class="card-text" id="itemPrice-${index}">LKR ${element.price}</p>
                     </div>
                 </div>
             </div>`;
@@ -51,7 +39,7 @@ function loadAllItems() {
 }
 
 function loadBurgers() {
-    allItems = ''; 
+    allItems = '';
 
     burgersArray.forEach((element, index) => {
         allItems += `
@@ -60,7 +48,7 @@ function loadBurgers() {
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
                         <h5 class="card-title" id="itemName-${index}">${element.itemName}</h5>
-                        <p class="card-text" id="itemPrice-${index}">${element.price}</p>
+                        <p class="card-text" id="itemPrice-${index}">LKR ${element.price}</p>
                     </div>
                 </div>
             </div>`;
@@ -69,7 +57,7 @@ function loadBurgers() {
 }
 
 function loadBeverages() {
-    allItems = ''; 
+    allItems = '';
 
     beveragesArray.forEach((element, index) => {
         allItems += `
@@ -78,7 +66,7 @@ function loadBeverages() {
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
                         <h5 class="card-title" id="itemName-${index}">${element.itemName}</h5>
-                        <p class="card-text" id="itemPrice-${index}">${element.price}</p>
+                        <p class="card-text" id="itemPrice-${index}">LKR ${element.price}</p>
                     </div>
                 </div>
             </div>`;
@@ -87,7 +75,7 @@ function loadBeverages() {
 }
 
 function loadDesserts() {
-    allItems = ''; 
+    allItems = '';
 
     dessertsArray.forEach((element, index) => {
         allItems += `
@@ -96,7 +84,7 @@ function loadDesserts() {
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
                         <h5 class="card-title" id="itemName-${index}">${element.itemName}</h5>
-                        <p class="card-text" id="itemPrice-${index}">${element.price}</p>
+                        <p class="card-text" id="itemPrice-${index}">LKR ${element.price}</p>
                     </div>
                 </div>
             </div>`;
@@ -106,51 +94,63 @@ function loadDesserts() {
 
 loadAllItems();
 
-
 // ----------------- Add To Order -----------------
 
 let ordersArray = [];
 let ordersFlow = document.getElementById("ordersFlow");
 
 function addToOrder(index) {
-    console.log(index);
-
     Swal.fire({
         title: "Enter Quantity",
         input: "number",
         inputAttributes: {
-          min: 1,
-          value: 1
+            min: 1,
+            value: 1
         },
         showCancelButton: true,
         confirmButtonText: "Add Order",
-      }).then((result) => {
+        cancelButtonText: "Cancel",
+        customClass: {
+            popup: 'custom-swal',
+            confirmButton: 'custom-btn',
+            cancelButton: 'custom-cancel-btn'
+        }
+    }).then((result) => {
         if (result.isConfirmed) {
-          const quantity = parseInt(result.value);
-      
-          if (quantity >= 1) {
-            let name = document.getElementById(`itemName-${index}`).innerText;
-            itemsList.forEach(element => {
-                if (name == element.itemName && !ordersArray.some(order => order.id === element.id)) {
-                    element.qty = quantity;
-                    ordersArray.push(element);
-                }
-            });
-            renderOrders();
-          } else {
-            Swal.fire({
-              title: "Invalid Quantity",
-              text: "Please enter a valid quantity (1 or greater).",
-              icon: "error"
-            });
-          }
+            const quantity = parseInt(result.value);
+
+            if (quantity >= 1) {
+                let name = document.getElementById(`itemName-${index}`).innerText;
+                itemsList.forEach(element => {
+                    if (name === element.itemName && !ordersArray.some(order => order.id === element.id)) {
+                        element.qty = quantity;
+                        ordersArray.push(element);
+                    }
+                });
+                renderOrders();
+                getTotal();
+            } else {
+                Swal.fire({
+                    title: "Invalid Quantity",
+                    text: "Please enter a valid quantity (1 or greater).",
+                    icon: "error",
+                    customClass: {
+                        popup: 'custom-swal',
+                        confirmButton: 'custom-btn',
+                        cancelButton: 'custom-cancel-btn'
+                    }
+                });
+            }
         }
     });
 }
 
+
+
 function removeOrder(id) {
     ordersArray = ordersArray.filter(order => order.id !== id);
     renderOrders();
+    getTotal();
 }
 
 function renderOrders() {
@@ -167,8 +167,94 @@ function renderOrders() {
             </div>
         `;
     });
-
     ordersFlow.innerHTML = orderBody;
 }
 
+// ----------------- Calculate Total and Discount -----------------
+
+let totalAmount = 0;
+
+function getTotal() {
+    totalAmount = 0;
+    ordersArray.forEach(element => {
+        totalAmount += (element.price * element.qty);
+    });
+
+    let discountPercentageInput = document.getElementById("txtDiscountRatio").value;
+    let discountPercentage = parseFloat(discountPercentageInput);
+
+    if (isNaN(discountPercentage) || discountPercentage < 0) {
+        discountPercentage = 0;
+    }
+
+    let discount = (totalAmount * discountPercentage) / 100;
+    let finalAmount = totalAmount - discount;
+
+    let totalPrice = document.getElementById("totalPrice");
+    let discountPrice = document.getElementById("discountPrice");
+    let finalPriceElement = document.getElementById("finalPrice");
+
+    totalPrice.innerHTML = `LKR ${totalAmount.toFixed(2)}`;
+    discountPrice.innerHTML = `LKR ${discount.toFixed(2)}`;
+    finalPriceElement.innerHTML = `LKR ${finalAmount.toFixed(2)}`;
+}
+
+getTotal();
+document.getElementById("txtDiscountRatio").addEventListener("input", getTotal);
+
+
+
+// ------------------------ Temporary Methods ------------------------
+
+function confirmOrder() {
+    Swal.fire({
+        title: "Order Placed",
+        text: "Press OK to place next order",
+        icon: "info",
+        customClass: {
+            popup: 'custom-swal',
+            confirmButton: 'custom-btn',
+            cancelButton: 'custom-cancel-btn'
+        }
+    });
+}
+
+function searchOrder() {
+    Swal.fire({
+        title: "Search Order page still not developed",
+        text: "Press OK to go back",
+        icon: "error",
+        customClass: {
+            popup: 'custom-swal',
+            confirmButton: 'custom-btn',
+            cancelButton: 'custom-cancel-btn'
+        }
+    });
+}
+
+function updateOrder() {
+    Swal.fire({
+        title: "Update Order page still not developed",
+        text: "Press OK to go back",
+        icon: "error",
+        customClass: {
+            popup: 'custom-swal',
+            confirmButton: 'custom-btn',
+            cancelButton: 'custom-cancel-btn'
+        }
+    });
+}
+
+function userDetails() {
+    Swal.fire({
+        title: "User Details page still not developed",
+        text: "Press OK to go back",
+        icon: "error",
+        customClass: {
+            popup: 'custom-swal',
+            confirmButton: 'custom-btn',
+            cancelButton: 'custom-cancel-btn'
+        }
+    });
+}
 

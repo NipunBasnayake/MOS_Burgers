@@ -1,23 +1,20 @@
 body {
     font-family: 'Helvetica', sans-serif;
-    background-color: #f7f7f7;
+    background-color: #e0e0e0;
+    color: #333;
     margin: 0;
     padding: 0;
-    color: #333;
 }
 
-/* ------------------------------ Left Sidebar Styles ------------------------------ */
+/* ---------------------- Left Sidebar ---------------------- */
+
 .sidebar {
-    background-color: #343a40;
+    background-color: #ffffff;
     padding: 40px 20px;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-.sidebar-header {
-    margin-bottom: 30px;
 }
 
 #MosBurger {
@@ -60,10 +57,9 @@ body {
 }
 
 
+/* ---------------------- Content ---------------------- */
 
-/* ------------------------------ Content Styles ------------------------------ */
-
-.filter-buttons{
+.filter-buttons {
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -118,7 +114,6 @@ body {
     color: #333;
     margin-bottom: 10px;
     text-align: center;
-    transition: color 0.3s ease;
 }
 
 .card-title:hover {
@@ -127,32 +122,22 @@ body {
 
 .card-text {
     font-size: 1rem;
-    color: #ff5733; 
+    color: #ff5733;
     font-weight: 600;
     text-align: center;
     margin-top: 5px;
-    transition: color 0.3s ease;
 }
 
-#scrollableDiv{
+#scrollableDiv {
     overflow: auto;
     height: 830px;
 }
 
 
+/* ---------------------- Right Sidebar ---------------------- */
 
-
-
-
-
-/* ---------------------------------------------- */
-
-
-
-
-/* Sidebar Styles */
 .sidebar-right {
-    background-color: #343a40;
+    background-color: #ffffff;
     height: 100vh;
     padding: 30px;
     display: flex;
@@ -160,25 +145,24 @@ body {
     justify-content: space-between;
 }
 
-/* Header Styles */
 #orderPlaceHeader {
     font-size: 2.5rem;
     font-weight: 700;
-    color: white;
+    color: #333;
     text-align: center;
     margin-bottom: 10px;
 }
+
 #placeHr {
-    border: 2px solid white;
+    border: 2px solid #333;
     margin-bottom: 20px;
 }
 
-/* Orders List */
 #ordersFlow {
     flex-grow: 1;
     overflow-y: auto;
     padding: 10px;
-    background-color: #212529;
+    background-color: #ffffff;
     border-radius: 10px;
 }
 
@@ -189,6 +173,7 @@ body {
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 15px;
+    border: 1px solid #333;
 }
 
 .order-item p, .btn-close {
@@ -196,13 +181,12 @@ body {
     margin-bottom: 10px;
 }
 
-/* Summary Section */
 .order-summary {
-    background-color: #1a1d20;
+    background-color: #ffffff;
     margin-top: 20px;
     padding: 20px;
     border-radius: 10px;
-    color: white;
+    color: #333;
 }
 
 .order-summary .order-total {
@@ -215,6 +199,46 @@ body {
     font-size: 1.5rem;
     transition: background-color 0.3s;
 }
+
 .order-summary .order-total:hover {
     background-color: #0056b3;
 }
+
+
+/* ------------------- Pop-Up Custom ----------------------- */
+
+.custom-swal {
+    background-color: #f4f4f9; 
+    border-radius: 10px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.custom-btn {
+    background-color: #4CAF50; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-cancel-btn {
+    background-color: #646464;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius:5px; 
+    cursor: pointer;
+}
+
+.custom-btn:hover {
+    background-color: #45a049;
+}
+
+.custom-cancel-btn:hover {
+    background-color: #3f3f3f;
+}
+
