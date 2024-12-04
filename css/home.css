@@ -26,7 +26,7 @@ body {
 }
 
 .sidebar-items {
-    flex-grow: 1; 
+    flex-grow: 1;
 }
 
 .sidebar-item {
@@ -61,7 +61,7 @@ body {
 /* ---------------------- Content ---------------------- */
 
 .filter-buttons {
-    padding: 20px;
+    padding-top: 30px;
     display: flex;
     justify-content: center;
 }
@@ -103,8 +103,8 @@ body {
 }
 
 .card img {
-    height: 200px; 
-    object-fit: cover; 
+    height: 200px;
+    object-fit: cover;
     width: 100%;
     border-bottom: 1px solid #ddd;
 }
@@ -130,9 +130,20 @@ body {
 }
 
 #scrollableDiv {
+    padding-left: 10px;
+    padding-right: 10px;
     overflow: auto;
     height: 830px;
 }
+
+#searchDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
+    border-radius: 30px;
+}
+
 
 
 /* ---------------------- Right Sidebar ---------------------- */
@@ -177,7 +188,8 @@ body {
     border: 1px solid #333;
 }
 
-.order-item p, .btn-close {
+.order-item p,
+.btn-close {
     font-size: 1rem;
     margin-bottom: 10px;
 }
@@ -209,14 +221,14 @@ body {
 /* ------------------- Pop-Up Custom ----------------------- */
 
 .custom-swal {
-    background-color: #f4f4f9; 
+    background-color: #f4f4f9;
     border-radius: 10px;
     padding: 20px;
     font-family: Arial, sans-serif;
 }
 
 .custom-btn {
-    background-color: #4CAF50; 
+    background-color: #4CAF50;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -231,7 +243,7 @@ body {
     border: none;
     padding: 10px 20px;
     font-size: 16px;
-    border-radius:5px; 
+    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -242,4 +254,3 @@ body {
 .custom-cancel-btn:hover {
     background-color: #3f3f3f;
 }
-

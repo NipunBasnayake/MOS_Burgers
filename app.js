@@ -48,3 +48,13 @@ function login() {
         window.location.href ="home.html";
     }
 }
+
+// function comp(){
+//     return(
+//         <div>
+//             <h1></h1>
+//         </div>
+//     )
+// }
+
+

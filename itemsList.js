@@ -1,14 +1,12 @@
-const itemsList = [
+let itemsList = [
     {
         id: 1,
         itemName: "Green Chilli Burger",
         price: 1350,
         qty: 15,
         type: "Burger",
-        categoryCode: "BURG",
-        availability: true,
-        description: "Spicy burger with green chili flavor and crispy veggies.",
-        image: "greenChilliCheeseBurger.jpg"
+        image: "greenChilliCheeseBurger.jpg",
+        expireDate: "12/12/2024"
     },
     {
         id: 2,
@@ -16,10 +14,8 @@ const itemsList = [
         price: 500,
         qty: 25,
         type: "Dessert",
-        categoryCode: "DSRT",
-        availability: true,
-        description: "Soft and creamy pudding with a hint of vanilla.",
-        image: "pudding.jpg"
+        image: "pudding.jpg",
+        expireDate: "01/01/2025"
     },
     {
         id: 3,
@@ -27,10 +23,8 @@ const itemsList = [
         price: 1500,
         qty: 10,
         type: "Burger",
-        categoryCode: "BURG",
-        availability: true,
-        description: "Premium turkey patty burger with fresh toppings.",
-        image: "turkeyBurger.jpg"
+        image: "turkeyBurger.jpg",
+        expireDate: "02/15/2025"
     },
     {
         id: 4,
@@ -38,10 +32,8 @@ const itemsList = [
         price: 150,
         qty: 50,
         type: "Beverage",
-        categoryCode: "BEVR",
-        availability: true,
-        description: "Refreshing lemon-lime soda.",
-        image: "sprite.jpg"
+        image: "sprite.jpg",
+        expireDate: "03/01/2025"
     },
     {
         id: 5,
@@ -49,10 +41,8 @@ const itemsList = [
         price: 600,
         qty: 20,
         type: "Dessert",
-        categoryCode: "DSRT",
-        availability: true,
-        description: "Creamy and delicious ice cream in various flavors.",
-        image: "iceCream.jpg"
+        image: "iceCream.jpg",
+        expireDate: "04/10/2025"
     },
     {
         id: 6,
@@ -60,10 +50,8 @@ const itemsList = [
         price: 1200,
         qty: 18,
         type: "Burger",
-        categoryCode: "BURG",
-        availability: true,
-        description: "Classic chicken burger with a crispy patty.",
-        image: "chickenBurger.jpg"
+        image: "chickenBurger.jpg",
+        expireDate: "05/20/2025"
     },
     {
         id: 7,
@@ -71,10 +59,8 @@ const itemsList = [
         price: 180,
         qty: 40,
         type: "Beverage",
-        categoryCode: "BEVR",
-        availability: true,
-        description: "Crisp and refreshing cola soda.",
-        image: "pepsi.jpg"
+        image: "pepsi.jpg",
+        expireDate: "06/15/2025"
     },
     {
         id: 8,
@@ -82,10 +68,8 @@ const itemsList = [
         price: 1400,
         qty: 12,
         type: "Burger",
-        categoryCode: "BURG",
-        availability: true,
-        description: "Juicy BBQ-flavored burger with a smoky finish.",
-        image: "bbqBurger.jpg"
+        image: "bbqBurger.jpg",
+        expireDate: "07/25/2025"
     },
     {
         id: 9,
@@ -93,10 +77,8 @@ const itemsList = [
         price: 700,
         qty: 8,
         type: "Dessert",
-        categoryCode: "DSRT",
-        availability: true,
-        description: "Traditional Sri Lankan dessert made with jaggery and coconut.",
-        image: "watalappam.jpg"
+        image: "watalappam.jpg",
+        expireDate: "08/30/2025"
     },
     {
         id: 10,
@@ -104,10 +86,8 @@ const itemsList = [
         price: 1200,
         qty: 20,
         type: "Burger",
-        categoryCode: "BURG",
-        availability: true,
-        description: "Cheesy burger with melted cheddar and fresh toppings.",
-        image: "cheeseBurger.jpg"
+        image: "cheeseBurger.jpg",
+        expireDate: "09/15/2025"
     },
     {
         id: 11,
@@ -115,10 +95,8 @@ const itemsList = [
         price: 700,
         qty: 15,
         type: "Dessert",
-        categoryCode: "DSRT",
-        availability: true,
-        description: "Fresh mixed fruit salad served chilled.",
-        image: "fruitSalad.jpg"
+        image: "fruitSalad.jpg",
+        expireDate: "10/01/2025"
     },
     {
         id: 12,
@@ -126,10 +104,8 @@ const itemsList = [
         price: 1400,
         qty: 10,
         type: "Burger",
-        categoryCode: "BURG",
-        availability: true,
-        description: "Rich and buttery burger with caramelized onions.",
-        image: "butterBurger.jpg"
+        image: "butterBurger.jpg",
+        expireDate: "11/05/2025"
     },
     {
         id: 13,
@@ -137,10 +113,8 @@ const itemsList = [
         price: 180,
         qty: 35,
         type: "Beverage",
-        categoryCode: "BEVR",
-        availability: true,
-        description: "Classic cola-flavored carbonated beverage.",
-        image: "cocaCola.jpg"
+        image: "cocaCola.jpg",
+        expireDate: "12/31/2025"
     },
     {
         id: 14,
@@ -148,10 +122,8 @@ const itemsList = [
         price: 1000,
         qty: 12,
         type: "Burger",
-        categoryCode: "BURG",
-        availability: true,
-        description: "Healthy veggie patty loaded with flavor and fresh veggies.",
-        image: "veggieBurger.jpg"
+        image: "veggieBurger.jpg",
+        expireDate: "01/10/2026"
     },
     {
         id: 15,
@@ -159,10 +131,8 @@ const itemsList = [
         price: 1300,
         qty: 8,
         type: "Burger",
-        categoryCode: "BURG",
-        availability: true,
-        description: "Earthy mushroom burger with a grilled patty.",
-        image: "mushroomBurger.jpg"
+        image: "mushroomBurger.jpg",
+        expireDate: "02/14/2026"
     },
     {
         id: 16,
@@ -170,10 +140,8 @@ const itemsList = [
         price: 150,
         qty: 40,
         type: "Beverage",
-        categoryCode: "BEVR",
-        availability: true,
-        description: "Popular local cola-flavored soft drink.",
-        image: "kikCola.jpg"
+        image: "kikCola.jpg",
+        expireDate: "03/20/2026"
     },
     {
         id: 17,
@@ -181,21 +149,17 @@ const itemsList = [
         price: 1400,
         qty: 15,
         type: "Burger",
-        categoryCode: "BURG",
-        availability: true,
-        description: "Flavorful burger with spices inspired by Burmese cuisine.",
-        image: "burmaBurger.jpg"
+        image: "burmaBurger.jpg",
+        expireDate: "04/25/2026"
     },
     {
         id: 18,
-        itemName: "Bison Burger",
+        "itemName": "Bison Burger",
         price: 1600,
         qty: 10,
         type: "Burger",
-        categoryCode: "BURG",
-        availability: true,
-        description: "Lean and savory bison meat patty in a toasted bun.",
-        image: "bisonBurger.jpg"
+        image: "bisonBurger.jpg",
+        expireDate: "05/15/2026"
     },
     {
         id: 19,
@@ -203,9 +167,7 @@ const itemsList = [
         price: 1800,
         qty: 5,
         type: "Burger",
-        categoryCode: "BURG",
-        availability: true,
-        description: "Premium elk patty burger with a unique flavor.",
-        image: "elkBurger.jpg"
+        image: "elkBurger.jpg",
+        expireDate: "06/30/2026"
     }
-];
+]

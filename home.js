@@ -4,6 +4,8 @@ let burgersArray = [];
 let beveragesArray = [];
 let dessertsArray = [];
 
+
+
 itemsList.forEach(element => {
     if (element.type == "Burger") {
         burgersArray.push(element);
@@ -25,7 +27,7 @@ function loadAllItems() {
 
     itemsList.forEach((element, index) => {
         allItems += `
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-3" onclick="addToOrder(${index})">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${index})">
                 <div class="card">
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
@@ -43,7 +45,7 @@ function loadBurgers() {
 
     burgersArray.forEach((element, index) => {
         allItems += `
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-3" onclick="addToOrder(${index})">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${index})">
                 <div class="card">
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
@@ -61,7 +63,7 @@ function loadBeverages() {
 
     beveragesArray.forEach((element, index) => {
         allItems += `
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-3" onclick="addToOrder(${index})">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${index})">
                 <div class="card">
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
@@ -79,7 +81,7 @@ function loadDesserts() {
 
     dessertsArray.forEach((element, index) => {
         allItems += `
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-3" onclick="addToOrder(${index})">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${index})">
                 <div class="card">
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
@@ -93,6 +95,7 @@ function loadDesserts() {
 }
 
 loadAllItems();
+
 
 // ----------------- Add To Order -----------------
 
@@ -144,7 +147,6 @@ function addToOrder(index) {
         }
     });
 }
-
 
 
 function removeOrder(id) {
@@ -201,6 +203,93 @@ function getTotal() {
 
 getTotal();
 document.getElementById("txtDiscountRatio").addEventListener("input", getTotal);
+
+
+// ------------------------  Store Management -------------------------- 
+
+function storeManagement(){
+
+}
+
+
+// ------------------------  Add Items --------------------------
+
+// function addItem(){
+//     Swal.fire({
+//         title: "Add Item",
+//         html: `
+//                 <input type="text" id="txtAddItemId" class="swal2-input" placeholder="Enter Id" required>
+//                 <input type="text" id="txtAddItemName" class="swal2-input" placeholder="Enter item name" required>
+//                 <select id="itemCategory" class="swal2-input">
+//                     <option value="Burger">Burger</option>
+//                     <option value="Beverage">Beverage</option>
+//                     <option value="Dessert">Dessert</option>
+//                 </select>
+//                 <input type="number" id="txtQty" class="swal2-input" placeholder="Enter Quantity" required>
+//                 <input type="number" id="unitPrice" class="swal2-input" placeholder="Enter unit price" required>
+//                 <input type="date" id="expireDate" class="swal2-input" placeholder="ExpireDate" required>
+//             `,
+//         showCancelButton: true,
+//         confirmButtonText: "Add Item",
+//         cancelButtonText: "Cancel",
+//         preConfirm: () => {
+//             let itemId = document.getElementById("txtAddItemId").value
+//             let itemName = document.getElementById("txtAddItemName").value;
+//             let category = document.getElementById("itemCategory").value;
+//             let quantity = parseInt(document.getElementById("txtQty").value);
+//             let unitPrice = parseFloat(document.getElementById("unitPrice").value);
+//             let expireDate = document.getElementById("expireDate").value;
+    
+//             if (!itemId) {
+//                 Swal.showValidationMessage("Item id cannot be empty.");
+//                 return false;
+//             }
+//             if (!itemName) {
+//                 Swal.showValidationMessage("Item name cannot be empty.");
+//                 return false;
+//             }
+//             if (isNaN(unitPrice) || unitPrice <= 0) {
+//                 Swal.showValidationMessage("Please enter a valid unit price greater than 0.");
+//                 return false;
+//             }
+//             if (isNaN(quantity) || quantity < 1) {
+//                 Swal.showValidationMessage("Please enter a valid quantity (1 or greater).");
+//                 return false;
+//             }
+//             if (isNaN(expireDate) || expireDate < 1) {
+//                 Swal.showValidationMessage("Please enter a valid Expire Date.");
+//                 return false;
+//             }
+    
+//             return { itemName, category, unitPrice, quantity };
+//         },
+//         customClass: {
+//             popup: 'custom-swal',
+//             confirmButton: 'custom-btn',
+//             cancelButton: 'custom-cancel-btn'
+//         }
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             const { itemName, category, unitPrice, quantity } = result.value;
+    
+//             const newItem = { 
+//                 itemName, 
+//                 category, 
+//                 unitPrice, 
+//                 quantity 
+//             };
+            
+//             itemsList.push(newItem);
+            
+//             console.log("Added Item:", newItem);
+//             renderOrders();
+//             getTotal();
+//         }
+//     });
+    
+
+    
+// }
 
 
 
