@@ -212,87 +212,6 @@ function storeManagement(){
 }
 
 
-// ------------------------  Add Items --------------------------
-
-// function addItem(){
-//     Swal.fire({
-//         title: "Add Item",
-//         html: `
-//                 <input type="text" id="txtAddItemId" class="swal2-input" placeholder="Enter Id" required>
-//                 <input type="text" id="txtAddItemName" class="swal2-input" placeholder="Enter item name" required>
-//                 <select id="itemCategory" class="swal2-input">
-//                     <option value="Burger">Burger</option>
-//                     <option value="Beverage">Beverage</option>
-//                     <option value="Dessert">Dessert</option>
-//                 </select>
-//                 <input type="number" id="txtQty" class="swal2-input" placeholder="Enter Quantity" required>
-//                 <input type="number" id="unitPrice" class="swal2-input" placeholder="Enter unit price" required>
-//                 <input type="date" id="expireDate" class="swal2-input" placeholder="ExpireDate" required>
-//             `,
-//         showCancelButton: true,
-//         confirmButtonText: "Add Item",
-//         cancelButtonText: "Cancel",
-//         preConfirm: () => {
-//             let itemId = document.getElementById("txtAddItemId").value
-//             let itemName = document.getElementById("txtAddItemName").value;
-//             let category = document.getElementById("itemCategory").value;
-//             let quantity = parseInt(document.getElementById("txtQty").value);
-//             let unitPrice = parseFloat(document.getElementById("unitPrice").value);
-//             let expireDate = document.getElementById("expireDate").value;
-    
-//             if (!itemId) {
-//                 Swal.showValidationMessage("Item id cannot be empty.");
-//                 return false;
-//             }
-//             if (!itemName) {
-//                 Swal.showValidationMessage("Item name cannot be empty.");
-//                 return false;
-//             }
-//             if (isNaN(unitPrice) || unitPrice <= 0) {
-//                 Swal.showValidationMessage("Please enter a valid unit price greater than 0.");
-//                 return false;
-//             }
-//             if (isNaN(quantity) || quantity < 1) {
-//                 Swal.showValidationMessage("Please enter a valid quantity (1 or greater).");
-//                 return false;
-//             }
-//             if (isNaN(expireDate) || expireDate < 1) {
-//                 Swal.showValidationMessage("Please enter a valid Expire Date.");
-//                 return false;
-//             }
-    
-//             return { itemName, category, unitPrice, quantity };
-//         },
-//         customClass: {
-//             popup: 'custom-swal',
-//             confirmButton: 'custom-btn',
-//             cancelButton: 'custom-cancel-btn'
-//         }
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             const { itemName, category, unitPrice, quantity } = result.value;
-    
-//             const newItem = { 
-//                 itemName, 
-//                 category, 
-//                 unitPrice, 
-//                 quantity 
-//             };
-            
-//             itemsList.push(newItem);
-            
-//             console.log("Added Item:", newItem);
-//             renderOrders();
-//             getTotal();
-//         }
-//     });
-    
-
-    
-// }
-
-
-
 // ------------------------ Temporary Methods ------------------------
 
 function confirmOrder() {
@@ -308,18 +227,37 @@ function confirmOrder() {
     });
 }
 
-function searchOrder() {
-    Swal.fire({
-        title: "Search Order page still not developed",
-        text: "Press OK to go back",
-        icon: "error",
-        customClass: {
-            popup: 'custom-swal',
-            confirmButton: 'custom-btn',
-            cancelButton: 'custom-cancel-btn'
+function searchItem() {
+    let txtSearchBar = document.getElementById("txtSearchBar").value.toLowerCase();
+    let scrollableDiv = document.getElementById("scrollableDiv");
+
+    scrollableDiv.innerHTML = "";
+    let foundItems = 0; 
+
+    itemsList.forEach((element, index) => {
+        if (element.itemName.toLowerCase().includes(txtSearchBar)) {
+            scrollableDiv.innerHTML += `
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${index})">
+                <div class="card">
+                    <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
+                    <div class="card-body">
+                        <h5 class="card-title" id="itemName-${index}">${element.itemName}</h5>
+                        <p class="card-text" id="itemPrice-${index}">LKR ${element.price}</p>
+                    </div>
+                </div>
+            </div>`;
+            foundItems++;
         }
     });
+
+    if (foundItems === 0) {
+        scrollableDiv.innerHTML = `
+        <div class="col-12">
+            <p class="text-center">No items match your search.</p>
+        </div>`;
+    }
 }
+
 
 function updateOrder() {
     Swal.fire({

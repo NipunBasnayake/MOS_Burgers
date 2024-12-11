@@ -1,5 +1,5 @@
 function searchItem() {
-    let txtSearchBar = document.getElementById("searchBar").value.toLowerCase().trim();
+    let txtSearchBar = document.getElementById("txtSearchBar").value.toLowerCase().trim();
     let scrollableDiv = document.getElementById("scrollableDiv");
 
     scrollableDiv.innerHTML = "";
@@ -37,47 +37,48 @@ function searchItem() {
 }
 
 
-function addItem(){
+function addItem() {
+    // console.log(itemsList);
+    
     Swal.fire({
-        title: `Update Item - ${item.itemName}`,
+        title: `Add Item`,
         html: `
-            <input type="text" id="addItemId" class="swal2-input" placeholder="">
-            <input type="text" id="addItemName" class="swal2-input" placeholder="">
-            <input type="number" id="updatePrice" class="swal2-input" placeholder="">
-            <input type="number" id="updateQty" class="swal2-input" placeholder="">
+            <input type="text" id="addItemId" class="swal2-input" value="${itemsList.length+1}" placeholder="">
+            <input type="text" id="addItemName" class="swal2-input" placeholder="Item Name">
+            <input type="number" id="addPrice" class="swal2-input" placeholder="Unit Price">
+            <input type="text" id="addType" class="swal2-input" placeholder="Item Type">
+            <input type="number" id="addQty" class="swal2-input" placeholder="Quantity">
+            <input type="text" id="addImage" class="swal2-input" placeholder="Image Name with Extension">
+            <input type="date" id="addExpireDate" class="swal2-input" placeholder="Expire Date">
         `,
         showCancelButton: true,
-        confirmButtonText: "Update",
+        confirmButtonText: "Add Item",
         preConfirm: () => {
-            const updatedName = document.getElementById("updateName").value.trim();
-            const updatedPrice = parseFloat(document.getElementById("updatePrice").value);
-            const updatedQty = parseInt(document.getElementById("updateQty").value, 10);
+            let addItemId = document.getElementById("addItemId").value.trim();
+            let addItemName = document.getElementById("addItemName").value.trim();
+            let addPrice = parseFloat(document.getElementById("addPrice").value);
+            let addQty = parseInt(document.getElementById("addQty").value);
+            let addType = document.getElementById("addType").value.trim();
+            let addImage = document.getElementById("addImage").value.trim();
+            let addExpireDate = document.getElementById("addExpireDate").value;
 
-            if (!updatedName) {
-                Swal.showValidationMessage("Name cannot be empty.");
-                return false;
-            }
-            if (isNaN(updatedPrice) || updatedPrice <= 0) {
-                Swal.showValidationMessage("Please enter a valid price.");
-                return false;
-            }
-            if (isNaN(updatedQty) || updatedQty <= 0) {
-                Swal.showValidationMessage("Please enter a valid quantity.");
-                return false;
-            }
 
-            itemsList[index].itemName = updatedName;
-            itemsList[index].price = updatedPrice;
-            itemsList[index].qty = updatedQty;
-
-            return true;
-        },
-    }).then((result) => {
-        if (result.isConfirmed) {
-            searchItem(); 
-            Swal.fire("Updated!", "The item has been updated.", "success");
+            if (!addItemId || !addItemName || isNaN(addPrice) || addPrice <= 0 || isNaN(addQty) || addQty <= 0 || !addType || !addImage || !addExpireDate) {
+                Swal.fire("Error!", "All fields are required, and values must be valid.", "error");
+                return false; 
+            }
+            itemsList.push({
+                id: addItemId,
+                itemName: addItemName,
+                price: addPrice,
+                qty: addQty,
+                type: addType,
+                image: addImage,
+                expireDate: addExpireDate
+            });            
+            Swal.fire("Success!", "The item has been added.", "success");
         }
-    });
+    })
 }
 
 
@@ -124,9 +125,6 @@ function updateItem(index) {
         }
     });
 }
-
-console.log(itemsList);
-
 
 
 function deleteItem(index) {

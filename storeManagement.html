@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -73,12 +73,13 @@
                         <button class="me-2" onclick="addItem()">
                             <i class="fas fa-plus"></i> Add Items
                         </button>
-                        <div class="me-2">
-                            <input type="text" id="searchBar" placeholder="Search..">
-                            <button  onclick="searchItem()">
-                                <i class="fas fa-search"></i> Search
+                        <div id="searchBar">
+                            <input type="text" id="txtSearchBar" placeholder="Search..">
+                            <button id="btnSearch" onclick="searchItem()" aria-label="Search">
+                                <i class="fas fa-search" aria-hidden="true"></i> Search
                             </button>
-                        </div >
+                        </div>
+                        
                     </div>
 
                     <div class="row pt-1" id="scrollableDiv"></div>

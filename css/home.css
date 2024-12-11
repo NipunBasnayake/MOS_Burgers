@@ -89,6 +89,42 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+#txtSearchBar{
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    outline: none;
+}
+
+#btnSearch {
+    margin-left: auto;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #ea0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#searchBar{
+    display: flex;
+    border: 2px solid red;
+    background-color: white;
+    border-radius: 30px;
+    margin-bottom: 10px;
+}
+
+
+
 .card {
     border: 1px solid #ddd;
     border-radius: 15px;

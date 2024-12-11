@@ -17,6 +17,18 @@ body {
     justify-content: space-between;
 }
 
+.filter-buttons button {
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    align-items: center;
+    transition: transform 0.3s ease;
+    background-color: #ea0000;
+    color: white;
+    border: none;
+}
+
 #MosBurger {
     font-family: 'Koulen', sans-serif;
     font-size: 3.2rem;
@@ -64,18 +76,6 @@ body {
     padding-top: 30px;
     display: flex;
     justify-content: center;
-}
-
-.filter-buttons button {
-    padding: 12px 20px;
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: bold;
-    align-items: center;
-    transition: transform 0.3s ease;
-    background-color: #ea0000;
-    color: white;
-    border: none;
 }
 
 .filter-buttons button:hover {
@@ -136,11 +136,28 @@ body {
     height: 830px;
 }
 
-#searchDiv{
-    display: flex;
-    justify-content: center;
+#txtSearchBar{
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    outline: none;
+}
+
+#btnSearch {
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
     align-items: center;
+    transition: transform 0.3s ease;
+    background-color: #ea0000;
+    color: white;
+    border: none;
+}
+
+#searchBar{
     border: 2px solid red;
+    background-color: white;
     border-radius: 30px;
 }
 
