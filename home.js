@@ -257,16 +257,15 @@ function confirmOrder() {
             const rightMargin = pageWidth - leftMargin;
             let yPosition = 20;
 
+            doc.setFontSize(28);
+            doc.setFont("");
+            doc.text("MOS BURGERS", pageWidth / 2, yPosition, null, null, "center");
+            yPosition += 10;
             doc.setFontSize(18);
-            doc.text("MOS Burgers", pageWidth / 2, yPosition, null, null, "center");
+            doc.text("INVOICE", pageWidth / 2, yPosition, null, null, "center");
             yPosition += 10;
-            doc.setFontSize(14);
-            doc.text("Order Bill", pageWidth / 2, yPosition, null, null, "center");
-            yPosition += 5;
-            doc.text("-------------------------------", pageWidth / 2, yPosition, null, null, "center");
-
-            yPosition += 10;
-            doc.setFontSize(10);
+            
+            doc.setFontSize(12);
             doc.text(`Customer: ${cmbCustomer || "N/A"}`, leftMargin, yPosition);
             yPosition += 5;
             doc.text(`Date: ${new Date().toLocaleDateString()}`, leftMargin, yPosition);
@@ -287,15 +286,13 @@ function confirmOrder() {
             });
 
             yPosition += 7;
-            doc.rect(leftMargin, yPosition, 108, 0.5);
-
             yPosition += 10;
             doc.setFontSize(12);
-            doc.text(`Total Amount: LKR ${totalAmount.toFixed(2)}`, leftMargin, yPosition);
+            doc.text(`Total Amount : LKR ${totalAmount.toFixed(2)}`, leftMargin, yPosition);
             yPosition += 5;
-            doc.text(`Discount: ${discount}%`, leftMargin, yPosition);
+            doc.text(`Discount         : ${discount}%`, leftMargin, yPosition);
             yPosition += 5;
-            doc.text(`Final Amount: LKR ${finalAmount.toFixed(2)}`, leftMargin, yPosition);
+            doc.text(`Final Amount : LKR ${finalAmount.toFixed(2)}`, leftMargin, yPosition);
 
             yPosition += 15;
             doc.setFontSize(12);
