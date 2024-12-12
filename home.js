@@ -207,25 +207,64 @@ document.getElementById("txtDiscountRatio").addEventListener("input", getTotal);
 
 // ------------------------  Store Management -------------------------- 
 
-function storeManagement(){
 
+
+
+// ------------------------ Place Order Methods ------------------------
+
+function confirmOrder() {
+    // Get selected customer
+    let cmbCustomer = document.getElementById("cmbCustomer").value;
+
+    // Get items from the orders array
+    let items = ordersArray.map((element) => element.itemName || "Unknown Item").join(", ");
+
+    // Get amounts and discount
+    let totalAmount = document.getElementById("totalPrice").value || "N/A";
+    let discount = document.getElementById("txtDiscountRatio").value || "N/A";
+    let amount = document.getElementById("finalPrice").value || "N/A";
+
+    // Configure SweetAlert with Bootstrap Buttons
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-primary"
+        },
+        buttonsStyling: false
+    });
+
+    // Show the confirmation dialog
+    swalWithBootstrapButtons.fire({
+        title: "Order Placed..! 🎉",
+        html: `
+            <div style="text-align: left;">
+                <p><strong>Customer:</strong> ${cmbCustomer || "N/A"}</p>
+                <p><strong>Items:</strong> ${items || "No items added"}</p>
+                <p><strong>Total Amount:</strong> ${totalAmount}</p>
+                <p><strong>Discount:</strong> ${discount}</p>
+                <p><strong>Amount:</strong> ${amount}</p>
+            </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: "Print Bill",
+        cancelButtonText: "Cancel",
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire({
+                title: "Order Confirmed! ✅",
+                text: "The order has been successfully placed.",
+                icon: "success"
+            });
+
+            // Add logic to print the bill or redirect to another page here
+        }
+    });
 }
 
 
 // ------------------------ Temporary Methods ------------------------
 
-function confirmOrder() {
-    Swal.fire({
-        title: "Order Placed",
-        text: "Press OK to place next order",
-        icon: "info",
-        customClass: {
-            popup: 'custom-swal',
-            confirmButton: 'custom-btn',
-            cancelButton: 'custom-cancel-btn'
-        }
-    });
-}
 
 function searchItem() {
     let txtSearchBar = document.getElementById("txtSearchBar").value.toLowerCase();
@@ -237,7 +276,7 @@ function searchItem() {
     itemsList.forEach((element, index) => {
         if (element.itemName.toLowerCase().includes(txtSearchBar)) {
             scrollableDiv.innerHTML += `
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${index})">
+            <div class=" mb-4" onclick="addToOrder(${index})">
                 <div class="card">
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
@@ -285,3 +324,49 @@ function userDetails() {
     });
 }
 
+
+// -------------------------- Add Customer --------------------------
+
+let customersArray = [];
+let cmbCustomer = document.getElementById("cmbCustomer");
+let customersCombobox = `<option value="" disabled selected>Select Customer</option>`;
+
+function loadCustomerArray() {
+    customersCombobox = `<option value="" disabled selected>Select Customer</option>`;
+    customersArray.forEach(element => {
+        customersCombobox += `
+            <option value="${element.name}">${element.name}</option>
+        `;
+    });
+    cmbCustomer.innerHTML = customersCombobox;
+}
+loadCustomerArray();
+
+function addCustomer() {
+    Swal.fire({
+        title: `Add Customer`,
+        html: `
+            <input type="text" id="addCustomerName" class="swal2-input" placeholder="Customer Name">
+            <input type="text" id="addMobileNumber" class="swal2-input" placeholder="Mobile Number">
+        `,
+        showCancelButton: true,
+        confirmButtonText: "Add Customer",
+        preConfirm: () => {
+            let addCustomerName = document.getElementById("addCustomerName").value;
+            let addMobileNumber = document.getElementById("addMobileNumber").value;
+
+            if (!addCustomerName.trim() || !addMobileNumber.trim()) {
+                Swal.fire("Error!", "All fields are required, and values must be valid.", "error");
+                return false; 
+            }
+
+            customersArray.push({
+                name: addCustomerName,
+                mobileNumber: addMobileNumber
+            });
+            loadCustomerArray();
+            Swal.fire("Success!", "Customer has been added.", "success");
+        }
+    });
+
+}

@@ -169,7 +169,7 @@ body {
     padding-left: 10px;
     padding-right: 10px;
     overflow: auto;
-    height: 830px;
+    height: 770px;
 }
 
 #searchDiv{
@@ -192,6 +192,44 @@ body {
     flex-direction: column;
     justify-content: space-between;
 }
+
+#cmbCustomer {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #d3d4ce;
+    border-radius: 5px;
+    font-size: 18px;
+    background-color: #fff;
+    color: #023246; 
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+#btnAddCustomer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #287194; 
+    color: #fff;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+}
+
+#btnAddCustomer:hover {
+    background-color: #023246; 
+}
+
+
+
+
+
 
 #orderPlaceHeader {
     font-size: 2.5rem;

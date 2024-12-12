@@ -83,7 +83,7 @@
                     </div>
 
                     <div id="searchBar" class="w-50">
-                        <input type="text" id="txtSearchBar" placeholder="Search..">
+                        <input type="text" id="txtSearchBar" placeholder="Search Item">
                         <button id="btnSearch" onclick="searchItem()" aria-label="Search">
                             <i class="fas fa-search" aria-hidden="true"></i> Search
                         </button>
@@ -99,9 +99,22 @@
             <!-- -------------------- Right Sidebar (Place Order)-------------------- -->
 
             <div class="col-lg-3 col-md-3 col-sm-12 sidebar-right">
+
+                <div class="d-flex">
+                    <select name="customers" id="cmbCustomer" style="width: 100%;">
+                        <option value="" disabled selected>Select Customer</option>
+                        <option value="customer1">Customer One</option>
+                        <option value="customer2">Customer Two</option>
+                        <option value="customer3">Customer Three</option>
+                    </select>
+                    <button id="btnAddCustomer" onclick="addCustomer()">
+                        <i class="fa fa-plus"></i> Add Customer
+                    </button>
+                </div>
+                
+                <hr id="placeHr">
                 <h2 id="orderPlaceHeader">Place Order</h2>
                 <hr id="placeHr">
-
                 <div id="ordersFlow" class="orders-list"></div>
                 <div class="order-summary">
                     <div class="d-flex justify-content-between ps-2 pe-2">
@@ -123,6 +136,7 @@
 
         </div>
     </div>
+
 
     <script src="itemsList.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
