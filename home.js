@@ -161,11 +161,11 @@ function renderOrders() {
     ordersArray.forEach((element) => {
         let orderPrice = element.qty * element.price;
         orderBody += `
-            <div class="order-item" id="order-item-${element.id}">
-                <p class="item-name">${element.itemName}</p> <p>|</p>
-                <p class="item-qty">${element.qty}</p> <p>|</p>
-                <p class="price highlighted">LKR ${orderPrice}</p> <p>|</p>
-                <button class="btn-close" aria-label="Close" onclick="removeOrder(${element.id})"></button>
+            <div class="order-item d-flex align-items-center border-1 border-primary justify-content-between py-2" id="order-item-${element.id}">
+                <span class="item-name flex-grow-1">${element.itemName}</span>
+                <span class="item-qty mx-3">${element.qty}</span>
+                <span class="price highlighted mx-3">LKR ${orderPrice}</span>
+                <button class="btn btn-close" aria-label="Close" onclick="removeOrder(${element.id})"></button>
             </div>
         `;
     });
@@ -175,6 +175,7 @@ function renderOrders() {
 // ----------------- Calculate Total and Discount -----------------
 
 let totalAmount = 0;
+let finalAmount = 0;
 
 function getTotal() {
     totalAmount = 0;
@@ -190,7 +191,7 @@ function getTotal() {
     }
 
     let discount = (totalAmount * discountPercentage) / 100;
-    let finalAmount = totalAmount - discount;
+    finalAmount = totalAmount - discount;
 
     let totalPrice = document.getElementById("totalPrice");
     let discountPrice = document.getElementById("discountPrice");
@@ -205,26 +206,13 @@ getTotal();
 document.getElementById("txtDiscountRatio").addEventListener("input", getTotal);
 
 
-// ------------------------  Store Management -------------------------- 
-
-
-
-
 // ------------------------ Place Order Methods ------------------------
 
 function confirmOrder() {
-    // Get selected customer
     let cmbCustomer = document.getElementById("cmbCustomer").value;
-
-    // Get items from the orders array
-    let items = ordersArray.map((element) => element.itemName || "Unknown Item").join(", ");
-
-    // Get amounts and discount
-    let totalAmount = document.getElementById("totalPrice").value || "N/A";
+    let items = ordersArray.map((element) => `<tr><td>${element.itemName || "Unknown Item"}</td><td class="ps-2">${element.qty || 0}</td></tr>`).join("");
     let discount = document.getElementById("txtDiscountRatio").value || "N/A";
-    let amount = document.getElementById("finalPrice").value || "N/A";
 
-    // Configure SweetAlert with Bootstrap Buttons
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: "btn btn-success",
@@ -233,16 +221,26 @@ function confirmOrder() {
         buttonsStyling: false
     });
 
-    // Show the confirmation dialog
     swalWithBootstrapButtons.fire({
-        title: "Order Placed..! 🎉",
+        title: "Order Placed..!",
         html: `
-            <div style="text-align: left;">
+            <div style="text-align: left; font-family: Arial, sans-serif;">
                 <p><strong>Customer:</strong> ${cmbCustomer || "N/A"}</p>
-                <p><strong>Items:</strong> ${items || "No items added"}</p>
-                <p><strong>Total Amount:</strong> ${totalAmount}</p>
-                <p><strong>Discount:</strong> ${discount}</p>
-                <p><strong>Amount:</strong> ${amount}</p>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid #ddd;">
+                            <th style="text-align: left; padding: 5px;">Item</th>
+                            <th style="text-align: left; padding: 5px;">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${items || "<tr><td colspan='2'>No items added</td></tr>"}
+                    </tbody>
+                </table>
+                <br>
+                <p style="margin-top: 10px;"><strong>Total Amount:</strong> LKR ${totalAmount.toFixed(2)}</p>
+                <p><strong>Discount:</strong> ${discount}%</p>
+                <p><strong>Amount:</strong> LKR ${finalAmount.toFixed(2)}</p>
             </div>
         `,
         showCancelButton: true,
@@ -251,13 +249,59 @@ function confirmOrder() {
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-            swalWithBootstrapButtons.fire({
-                title: "Order Confirmed! ✅",
-                text: "The order has been successfully placed.",
-                icon: "success"
+            const doc = new jsPDF('p', 'mm', 'a5');
+            doc.setFont("helvetica");
+
+            const pageWidth = 148;
+            const leftMargin = 20;
+            const rightMargin = pageWidth - leftMargin;
+            let yPosition = 20;
+
+            doc.setFontSize(18);
+            doc.text("MOS Burgers", pageWidth / 2, yPosition, null, null, "center");
+            yPosition += 10;
+            doc.setFontSize(14);
+            doc.text("Order Bill", pageWidth / 2, yPosition, null, null, "center");
+            yPosition += 5;
+            doc.text("-------------------------------", pageWidth / 2, yPosition, null, null, "center");
+
+            yPosition += 10;
+            doc.setFontSize(10);
+            doc.text(`Customer: ${cmbCustomer || "N/A"}`, leftMargin, yPosition);
+            yPosition += 5;
+            doc.text(`Date: ${new Date().toLocaleDateString()}`, leftMargin, yPosition);
+
+            yPosition += 10;
+            doc.setFontSize(12);
+            doc.setLineWidth(0.5);
+            doc.rect(leftMargin, yPosition, 108, 7);
+            doc.text("Item", leftMargin + 5, yPosition + 5);
+            doc.text("Qty", leftMargin + 85, yPosition + 5);
+
+            ordersArray.forEach((element) => {
+                yPosition += 7;
+                doc.rect(leftMargin, yPosition, 108, 7);
+                let itemName = (element.itemName || "Unknown Item").substring(0, 30);
+                doc.text(itemName, leftMargin + 5, yPosition + 5);
+                doc.text(`${element.qty || 0}`, leftMargin + 85, yPosition + 5);
             });
 
-            // Add logic to print the bill or redirect to another page here
+            yPosition += 7;
+            doc.rect(leftMargin, yPosition, 108, 0.5);
+
+            yPosition += 10;
+            doc.setFontSize(12);
+            doc.text(`Total Amount: LKR ${totalAmount.toFixed(2)}`, leftMargin, yPosition);
+            yPosition += 5;
+            doc.text(`Discount: ${discount}%`, leftMargin, yPosition);
+            yPosition += 5;
+            doc.text(`Final Amount: LKR ${finalAmount.toFixed(2)}`, leftMargin, yPosition);
+
+            yPosition += 15;
+            doc.setFontSize(12);
+            doc.text("Thank you for your purchase!", pageWidth / 2, yPosition, null, null, "center");
+
+            doc.save("Order_Bill.pdf");
         }
     });
 }
@@ -265,13 +309,12 @@ function confirmOrder() {
 
 // ------------------------ Temporary Methods ------------------------
 
-
 function searchItem() {
     let txtSearchBar = document.getElementById("txtSearchBar").value.toLowerCase();
     let scrollableDiv = document.getElementById("scrollableDiv");
 
     scrollableDiv.innerHTML = "";
-    let foundItems = 0; 
+    let foundItems = 0;
 
     itemsList.forEach((element, index) => {
         if (element.itemName.toLowerCase().includes(txtSearchBar)) {
@@ -296,7 +339,6 @@ function searchItem() {
         </div>`;
     }
 }
-
 
 function updateOrder() {
     Swal.fire({
@@ -357,7 +399,7 @@ function addCustomer() {
 
             if (!addCustomerName.trim() || !addMobileNumber.trim()) {
                 Swal.fire("Error!", "All fields are required, and values must be valid.", "error");
-                return false; 
+                return false;
             }
 
             customersArray.push({
