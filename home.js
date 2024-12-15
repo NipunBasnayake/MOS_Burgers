@@ -265,35 +265,42 @@ function confirmOrder() {
             doc.text("INVOICE", pageWidth / 2, yPosition, null, null, "center");
             yPosition += 10;
             
-            doc.setFontSize(12);
+            doc.setFontSize(11);
+
             doc.text(`Customer: ${cmbCustomer || "N/A"}`, leftMargin, yPosition);
             yPosition += 5;
             doc.text(`Date: ${new Date().toLocaleDateString()}`, leftMargin, yPosition);
+            yPosition += 8;
 
-            yPosition += 10;
-            doc.setFontSize(12);
+            doc.setFontSize(11);
             doc.setLineWidth(0.5);
+            doc.setFont("","bold");
             doc.rect(leftMargin, yPosition, 108, 7);
             doc.text("Item", leftMargin + 5, yPosition + 5);
-            doc.text("Qty", leftMargin + 85, yPosition + 5);
+            doc.text("Price", leftMargin + 50, yPosition + 5);
+            doc.text("Qty", leftMargin + 73, yPosition + 5);
+            doc.text("Amount", leftMargin + 90, yPosition + 5);
 
+            doc.setFont("","regular");
             ordersArray.forEach((element) => {
                 yPosition += 7;
                 doc.rect(leftMargin, yPosition, 108, 7);
                 let itemName = (element.itemName || "Unknown Item").substring(0, 30);
                 doc.text(itemName, leftMargin + 5, yPosition + 5);
-                doc.text(`${element.qty || 0}`, leftMargin + 85, yPosition + 5);
+                doc.text(`${element.price.toFixed(2)}`, leftMargin + 50, yPosition + 5);
+                doc.text(`${element.qty || 0}`, leftMargin + 75, yPosition + 5);
+                doc.text(`${(element.qty*element.price).toFixed(2)}`, leftMargin + 90, yPosition + 5);
             });
+            yPosition += 17;
 
-            yPosition += 7;
-            yPosition += 10;
-            doc.setFontSize(12);
-            doc.text(`Total Amount : LKR ${totalAmount.toFixed(2)}`, leftMargin, yPosition);
+            doc.setFontSize(11);
+            doc.text(`Total Amount   : LKR ${totalAmount.toFixed(2)}`, leftMargin, yPosition);
             yPosition += 5;
-            doc.text(`Discount         : ${discount}%`, leftMargin, yPosition);
+            doc.text(`Discount Rate  : ${discount}%`, leftMargin, yPosition);
             yPosition += 5;
-            doc.text(`Final Amount : LKR ${finalAmount.toFixed(2)}`, leftMargin, yPosition);
-
+            doc.text(`Discount Price : ${totalAmount*discount/100}`, leftMargin, yPosition);
+            yPosition += 5;
+            doc.text(`Final Amount   : LKR ${finalAmount.toFixed(2)}`, leftMargin, yPosition);
             yPosition += 15;
             doc.setFontSize(12);
             doc.text("Thank you for your purchase!", pageWidth / 2, yPosition, null, null, "center");
