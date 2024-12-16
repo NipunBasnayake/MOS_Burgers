@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -38,16 +38,11 @@
                             Store Management
                         </button>
                     </div>
-                    <!-- <div class="sidebar-item">
-                        <button class="btn btn-secondary mb-3" onclick="searchOrder()">
-                            <i class="fa fa-search"></i> Search Order
+                    <div class="sidebar-item">
+                        <button class="btn btn-secondary mb-3" onclick="window.location.href='customerManagement.html'">
+                            Customer Management
                         </button>
                     </div>
-                    <div class="sidebar-item">
-                        <button class="btn btn-secondary mb-3" onclick="updateOrder()">
-                            <i class="fa fa-edit"></i> Update
-                        </button>
-                    </div> -->
                 </div>
                 <div class="sidebar-account">
                     <div class="sidebar-item">
@@ -63,9 +58,8 @@
                 </div>
             </div>
 
-
             <!-- -------------------- Content Area ------------------- -->
-
+             
             <div class="col-lg-10 col-md-6 col-sm-12">
 
                 <div class="main-content">
@@ -79,7 +73,7 @@
                                 <i class="fas fa-search" aria-hidden="true"></i> Search
                             </button>
                         </div>
-                        
+
                     </div>
 
                     <div class="row pt-1" id="scrollableDiv"></div>
@@ -90,8 +84,8 @@
         </div>
     </div>
 
-    
-    <script src="itemsList.js"></script>
+
+    <!-- <script src="itemsList.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -101,22 +95,3 @@
 </body>
 
 </html>
-
-
-
-
-<!-- <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${index})">
-    <div class="card">
-        <img src="images/itemImages/${element.image}" class="card-img-top" alt="${element.itemName}">
-        <div class="card-body">
-            <h5 class="card-title" id="itemName-${index}">${element.itemName}</h5>
-            <p class="card-text" id="itemPrice-${index}">LKR ${element.price}</p>
-            <div class="d-flex">
-                <button id="btnUpdate">Update</button>
-                <button id="btnDelete">Delete</button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-

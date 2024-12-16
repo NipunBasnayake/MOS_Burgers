@@ -1,3 +1,20 @@
+// ----------------- Access Browser Local Storage -----------------
+
+function saveItemsToLocalStorage() {
+    localStorage.setItem("itemsList", JSON.stringify(itemsList));
+}
+
+function loadItemsFromLocalStorage() {
+    const storedItems = localStorage.getItem("itemsList");
+    if (storedItems) {
+        itemsList = JSON.parse(storedItems);
+    } else {
+        saveItemsToLocalStorage();
+    }
+}
+loadItemsFromLocalStorage();
+
+
 // ----------------- Arrays -----------------
 
 let burgersArray = [];
@@ -107,7 +124,7 @@ function addToOrder(index) {
     let item = itemsList.find(element => element.itemName === name);
 
     if (item && !ordersArray.some(order => order.id === item.id)) {
-        item.qty = 1; // Default quantity
+        item.qty = 1; 
         ordersArray.push(item);
         renderOrders();
         getTotal();
@@ -159,82 +176,6 @@ function renderOrders() {
     ordersFlow.innerHTML = orderBody;
 }
 
-
-
-// // ----------------- Add To Order -----------------
-
-// let ordersArray = [];
-// let ordersFlow = document.getElementById("ordersFlow");
-
-// function addToOrder(index) {
-//     Swal.fire({
-//         title: "Enter Quantity",
-//         input: "number",
-//         inputAttributes: {
-//             min: 1,
-//             value: 1
-//         },
-//         showCancelButton: true,
-//         confirmButtonText: "Add Order",
-//         cancelButtonText: "Cancel",
-//         customClass: {
-//             popup: 'custom-swal',
-//             confirmButton: 'custom-btn',
-//             cancelButton: 'custom-cancel-btn'
-//         }
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             const quantity = parseInt(result.value);
-
-//             if (quantity >= 1) {
-//                 let name = document.getElementById(`itemName-${index}`).innerText;
-//                 itemsList.forEach(element => {
-//                     if (name === element.itemName && !ordersArray.some(order => order.id === element.id)) {
-//                         element.qty = quantity;
-//                         ordersArray.push(element);
-//                     }
-//                 });
-//                 renderOrders();
-//                 getTotal();
-//             } else {
-//                 Swal.fire({
-//                     title: "Invalid Quantity",
-//                     text: "Please enter a valid quantity (1 or greater).",
-//                     icon: "error",
-//                     customClass: {
-//                         popup: 'custom-swal',
-//                         confirmButton: 'custom-btn',
-//                         cancelButton: 'custom-cancel-btn'
-//                     }
-//                 });
-//             }
-//         }
-//     });
-// }
-
-
-// function removeOrder(id) {
-//     ordersArray = ordersArray.filter(order => order.id !== id);
-//     renderOrders();
-//     getTotal();
-// }
-
-// function renderOrders() {
-//     let orderBody = ``;
-
-//     ordersArray.forEach((element) => {
-//         let orderPrice = element.qty * element.price;
-//         orderBody += `
-//             <div class="order-item d-flex align-items-center border-1 border-primary justify-content-between py-2" id="order-item-${element.id}">
-//                 <span class="item-name flex-grow-1">${element.itemName}</span>
-//                 <span class="item-qty mx-3">${element.qty}</span>
-//                 <span class="price highlighted mx-3">LKR ${orderPrice}</span>
-//                 <button class="btn btn-close" aria-label="Close" onclick="removeOrder(${element.id})"></button>
-//             </div>
-//         `;
-//     });
-//     ordersFlow.innerHTML = orderBody;
-// }
 
 // ----------------- Calculate Total and Discount -----------------
 
