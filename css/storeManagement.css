@@ -213,15 +213,9 @@ body {
     text-align: right;
 }
 
-.btn {
-    width: 45%;
-    font-size: 0.8rem;
-    padding: 6px;
-}
-
-.btn-sm {
-    font-size: 0.75rem;
-    padding: 4px 8px;
+.actions-column {
+    width: 200px; 
+    text-align: center; 
 }
 
 

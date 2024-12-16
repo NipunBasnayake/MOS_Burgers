@@ -4,7 +4,7 @@ loadOrdersFromLocalStorage();
 loadAllOrders();
 
 function saveOrdersToLocalStorage() {
-    localStorage.setItem("orderHistory", JSON.stringify(orderHistory));  
+    localStorage.setItem("orderHistory", JSON.stringify(orderHistory));
 }
 
 function loadOrdersFromLocalStorage() {
@@ -24,7 +24,7 @@ function loadAllOrders() {
                     <th>Total Amount</th>
                     <th>Final Amount</th>
                     <th>Discount</th>
-                    <th class="actions-column">Actions</th>
+                    <<th class="actions-column text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +39,7 @@ function loadAllOrders() {
                 <td>LKR ${order.finalAmount.toFixed(2)}</td>
                 <td>${order.discount}%</td>
                 <td class="actions-column">
-                    <button class="btn btn-info btn-sm" onclick="viewOrderDetails(${index})">
+                    <button class="btn btn-primary btn-sm" onclick="viewOrderDetails(${index})">
                         View
                     </button>
                     <button class="btn btn-danger btn-sm" onclick="deleteOrder(${index})">
@@ -104,13 +104,13 @@ function viewOrderDetails(index) {
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-            generatePDF(index) ;
+            generatePDF(index);
         }
     });
 }
 
 function generatePDF(index) {
-    const order = orderHistory[index]; 
+    const order = orderHistory[index];
     const doc = new jsPDF('p', 'mm', 'a5');
     doc.setFont("helvetica");
 
@@ -135,17 +135,17 @@ function generatePDF(index) {
 
     doc.setFontSize(11);
     doc.setLineWidth(0.5);
-    doc.setFont("","bold");
-    doc.rect(leftMargin, yPosition, 108, 7); 
+    doc.setFont("", "bold");
+    doc.rect(leftMargin, yPosition, 108, 7);
     doc.text("Item", leftMargin + 5, yPosition + 5);
     doc.text("Price", leftMargin + 50, yPosition + 5);
     doc.text("Qty", leftMargin + 73, yPosition + 5);
     doc.text("Amount", leftMargin + 90, yPosition + 5);
 
-    doc.setFont("","regular");
+    doc.setFont("", "regular");
     order.items.forEach((item) => {
         yPosition += 7;
-        doc.rect(leftMargin, yPosition, 108, 7); 
+        doc.rect(leftMargin, yPosition, 108, 7);
         let itemName = (item.itemName || "Unknown Item").substring(0, 30);
         doc.text(itemName, leftMargin + 5, yPosition + 5);
         doc.text(`${item.price.toFixed(2)}`, leftMargin + 50, yPosition + 5);

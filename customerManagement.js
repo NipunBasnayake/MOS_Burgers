@@ -185,7 +185,7 @@ function loadAllCustomers(customersToDisplay = customersArray) {
                 <td>${customer.name}</td>
                 <td>${customer.mobileNumber}</td>
                 <td class="actions-column">
-                    <button class="btn btn-warning btn-sm" onclick="updateCustomer(${index})">
+                    <button class="btn btn-primary btn-sm" onclick="updateCustomer(${index})">
                         Update
                     </button>
                     <button class="btn btn-danger btn-sm" onclick="deleteCustomer(${index})">
