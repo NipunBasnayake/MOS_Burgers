@@ -2,7 +2,7 @@
 
 let itemsList = [];
 let ordersArray = [];
-const scrollableDiv = document.getElementById("scrollableDiv");
+let scrollableDiv = document.getElementById("scrollableDiv");
 const ordersFlow = document.getElementById("ordersFlow");
 
 loadItemsFromLocalStorage();
@@ -21,40 +21,106 @@ function loadItemsFromLocalStorage() {
 }
 
 
-// ---------------------- Rendering Functions --------------------------
-
 function loadAllItems() {
-    let allItems = "";
+    let tableHTML = `
+        <table class="table table-bordered table-striped table-light mx-auto" style="width:95%">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Item Name</th>
+                    <th>Price</th>
+                    <th>Type</th>
+                    <th>Qty</th>
+                    <th>Expire Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
     itemsList.forEach((element, index) => {
-        allItems += `
-            <div class="col-lg-2 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${index})">
-                <div class="card">
-                    <img src="images/itemImages/${element.image}" class="card-img-top" alt="${element.itemName}">
-                    <div class="card-body">
-                        <h5 class="card-title">${element.itemName}</h5>
-                        <p class="card-text">LKR ${element.price}</p>
-                        <div class="row">
-                            <div class="col-6">
-                                <p class="card-text"><strong>Type:</strong> ${element.type}</p>
-                            </div>
-                            <div class="col-6 text-end">
-                                <p class="card-text"><strong>Qty:</strong> ${element.qty}</p>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <button class="btn btn-primary btn-sm" onClick="updateItem(${index})">Update</button>
-                            <button class="btn btn-danger btn-sm" onClick="deleteItem(${index})">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        tableHTML += `
+            <tr>
+                <td onclick="showItemDetails(${index})">${element.id}</td>
+                <td onclick="showItemDetails(${index})">
+                    <img src="images/itemImages/${element.image}" alt="${element.itemName}" class="img-fluid" style="max-width: 50px; height: auto;">
+                </td>
+                <td onclick="showItemDetails(${index})">${element.itemName}</td>
+                <td onclick="showItemDetails(${index})">LKR ${element.price}</td>
+                <td onclick="showItemDetails(${index})">${element.type}</td>
+                <td onclick="showItemDetails(${index})">${element.qty}</td>
+                <td onclick="showItemDetails(${index})">${element.expireDate}</td>
+                <td class="text-center">
+                    <button class="btn btn-primary btn-sm" onclick="updateItem(event, ${index})">Update</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteItem(event, ${index})">Delete</button>
+                </td>
+            </tr>
         `;
     });
-    scrollableDiv.innerHTML = allItems;
+
+    tableHTML += `
+            </tbody>
+        </table>
+    `;
+    scrollableDiv.innerHTML = tableHTML;
+}
+
+function showItemDetails(index) {
+    const item = itemsList[index];
+
+    Swal.fire({
+        title: item.itemName,
+        html: `
+            <div style="text-align: left;">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td><strong>ID</strong></td>
+                        <td>${item.id}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Price</strong></td>
+                        <td>LKR ${item.price}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Type</strong></td>
+                        <td>${item.type}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quantity</strong></td>
+                        <td>${item.qty}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Expire Date</strong></td>
+                        <td>${item.expireDate}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Image Display -->
+            <div style="text-align: center; margin-top: 15px;">
+                <img 
+                    src="images/itemImages/${item.image}" 
+                    alt="${item.itemName}" 
+                    class="img-fluid" 
+                    style="max-width: 250px; height: auto; border-radius: 10px;">
+            </div>
+        `,showConfirmButton: false
+    });
+    const buttonsHTML = `
+        <div style="text-align: center; margin-top: 15px;">
+            <button class="btn btn-primary fw-bold" onclick="updateItem(event, ${index})">Update</button>
+            <button class="btn btn-danger fw-bold" onclick="deleteItem(event, ${index})">Delete</button>
+        </div>
+    `
+    const swalFooter = document.querySelector('.swal2-footer');
+    if (swalFooter) {
+        swalFooter.innerHTML = buttonsHTML;
+    }
 }
 
 
-// ---------------------- Search Functionality --------------------------
+// ---------------------- Search Items --------------------------
 
 function searchItem() {
     const txtSearchBar = document.getElementById("txtSearchBar").value.toLowerCase().trim();
@@ -69,7 +135,7 @@ function searchItem() {
         scrollableDiv.innerHTML = filteredItems.map((element, index) => `
             <div class="col-lg-2 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${index})">
                 <div class="card">
-                    <img src="images/itemImages/${element.image}" class="card-img-top" alt="${element.itemName}">
+                    <img src="images/itemImages/${element.image}" class="card-img-top" alt="${element.itemName}" style="width: auto; max-height: 300px;">
                     <div class="card-body">
                         <h5 class="card-title">${element.itemName}</h5>
                         <p class="card-text">LKR ${element.price}</p>
@@ -143,7 +209,9 @@ function addItem() {
 
 // ---------------------- Update Items --------------------------
 
-function updateItem(index) {
+function updateItem(event, index) {
+    event.stopPropagation();
+
     const item = itemsList[index];
     const formattedExpireDate = new Date(item.expireDate).toISOString().split("T")[0];
 
@@ -169,7 +237,7 @@ function updateItem(index) {
             const updatedPrice = parseFloat(document.getElementById("updatePrice").value);
             const updatedQty = parseInt(document.getElementById("updateQty").value, 10);
             const updatedType = document.getElementById("updateType").value;
-            const updatedImageInput = document.getElementById("updateImage").value;
+            const updatedImageInput = document.getElementById("updateImage").files[0]; // Get the uploaded file
             const updatedExpireDate = document.getElementById("updateExpireDate").value;
 
             if (!updatedName) {
@@ -193,7 +261,7 @@ function updateItem(index) {
                 return false;
             }
 
-            const updatedImage = updatedImageInput ? updatedImageInput.split("\\").pop() : item.image;
+            const updatedImage = updatedImageInput ? updatedImageInput.name : item.image; 
 
             itemsList[index] = {
                 ...item,
@@ -252,7 +320,7 @@ function loadItemsFromLocalStorage() {
     if (storedItems) {
         itemsList = JSON.parse(storedItems);
     } else {
-        saveItemsToLocalStorage(); 
+        saveItemsToLocalStorage();
     }
 }
 
