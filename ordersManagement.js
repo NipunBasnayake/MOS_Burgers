@@ -24,7 +24,7 @@ function loadAllOrders() {
                     <th>Total Amount</th>
                     <th>Final Amount</th>
                     <th>Discount</th>
-                    <<th class="actions-column text-center">Actions</th>
+                    <th class="actions-column text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
