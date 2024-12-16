@@ -103,51 +103,34 @@ let ordersArray = [];
 let ordersFlow = document.getElementById("ordersFlow");
 
 function addToOrder(index) {
-    Swal.fire({
-        title: "Enter Quantity",
-        input: "number",
-        inputAttributes: {
-            min: 1,
-            value: 1
-        },
-        showCancelButton: true,
-        confirmButtonText: "Add Order",
-        cancelButtonText: "Cancel",
-        customClass: {
-            popup: 'custom-swal',
-            confirmButton: 'custom-btn',
-            cancelButton: 'custom-cancel-btn'
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            const quantity = parseInt(result.value);
+    let name = document.getElementById(`itemName-${index}`).innerText;
+    let item = itemsList.find(element => element.itemName === name);
 
-            if (quantity >= 1) {
-                let name = document.getElementById(`itemName-${index}`).innerText;
-                itemsList.forEach(element => {
-                    if (name === element.itemName && !ordersArray.some(order => order.id === element.id)) {
-                        element.qty = quantity;
-                        ordersArray.push(element);
-                    }
-                });
-                renderOrders();
-                getTotal();
-            } else {
-                Swal.fire({
-                    title: "Invalid Quantity",
-                    text: "Please enter a valid quantity (1 or greater).",
-                    icon: "error",
-                    customClass: {
-                        popup: 'custom-swal',
-                        confirmButton: 'custom-btn',
-                        cancelButton: 'custom-cancel-btn'
-                    }
-                });
-            }
-        }
-    });
+    if (item && !ordersArray.some(order => order.id === item.id)) {
+        item.qty = 1; // Default quantity
+        ordersArray.push(item);
+        renderOrders();
+        getTotal();
+    }
 }
 
+function incrementQty(id) {
+    let order = ordersArray.find(order => order.id === id);
+    if (order) {
+        order.qty++;
+        renderOrders();
+        getTotal();
+    }
+}
+
+function decrementQty(id) {
+    let order = ordersArray.find(order => order.id === id);
+    if (order && order.qty > 1) {
+        order.qty--;
+        renderOrders();
+        getTotal();
+    }
+}
 
 function removeOrder(id) {
     ordersArray = ordersArray.filter(order => order.id !== id);
@@ -163,7 +146,11 @@ function renderOrders() {
         orderBody += `
             <div class="order-item d-flex align-items-center border-1 border-primary justify-content-between py-2" id="order-item-${element.id}">
                 <span class="item-name flex-grow-1">${element.itemName}</span>
-                <span class="item-qty mx-3">${element.qty}</span>
+                <div class="item-qty-controls d-flex align-items-center mx-3">
+                    <button class="btn btn-sm btn-outline-primary" onclick="decrementQty(${element.id})">-</button>
+                    <span class="item-qty mx-2">${element.qty}</span>
+                    <button class="btn btn-sm btn-outline-primary" onclick="incrementQty(${element.id})">+</button>
+                </div>
                 <span class="price highlighted mx-3">LKR ${orderPrice}</span>
                 <button class="btn btn-close" aria-label="Close" onclick="removeOrder(${element.id})"></button>
             </div>
@@ -171,6 +158,83 @@ function renderOrders() {
     });
     ordersFlow.innerHTML = orderBody;
 }
+
+
+
+// // ----------------- Add To Order -----------------
+
+// let ordersArray = [];
+// let ordersFlow = document.getElementById("ordersFlow");
+
+// function addToOrder(index) {
+//     Swal.fire({
+//         title: "Enter Quantity",
+//         input: "number",
+//         inputAttributes: {
+//             min: 1,
+//             value: 1
+//         },
+//         showCancelButton: true,
+//         confirmButtonText: "Add Order",
+//         cancelButtonText: "Cancel",
+//         customClass: {
+//             popup: 'custom-swal',
+//             confirmButton: 'custom-btn',
+//             cancelButton: 'custom-cancel-btn'
+//         }
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             const quantity = parseInt(result.value);
+
+//             if (quantity >= 1) {
+//                 let name = document.getElementById(`itemName-${index}`).innerText;
+//                 itemsList.forEach(element => {
+//                     if (name === element.itemName && !ordersArray.some(order => order.id === element.id)) {
+//                         element.qty = quantity;
+//                         ordersArray.push(element);
+//                     }
+//                 });
+//                 renderOrders();
+//                 getTotal();
+//             } else {
+//                 Swal.fire({
+//                     title: "Invalid Quantity",
+//                     text: "Please enter a valid quantity (1 or greater).",
+//                     icon: "error",
+//                     customClass: {
+//                         popup: 'custom-swal',
+//                         confirmButton: 'custom-btn',
+//                         cancelButton: 'custom-cancel-btn'
+//                     }
+//                 });
+//             }
+//         }
+//     });
+// }
+
+
+// function removeOrder(id) {
+//     ordersArray = ordersArray.filter(order => order.id !== id);
+//     renderOrders();
+//     getTotal();
+// }
+
+// function renderOrders() {
+//     let orderBody = ``;
+
+//     ordersArray.forEach((element) => {
+//         let orderPrice = element.qty * element.price;
+//         orderBody += `
+//             <div class="order-item d-flex align-items-center border-1 border-primary justify-content-between py-2" id="order-item-${element.id}">
+//                 <span class="item-name flex-grow-1">${element.itemName}</span>
+//                 <span class="item-qty mx-3">${element.qty}</span>
+//                 <span class="price highlighted mx-3">LKR ${orderPrice}</span>
+//                 <button class="btn btn-close" aria-label="Close" onclick="removeOrder(${element.id})"></button>
+//             </div>
+//         `;
+//     });
+//     ordersFlow.innerHTML = orderBody;
+// }
 
 // ----------------- Calculate Total and Discount -----------------
 
@@ -209,6 +273,10 @@ document.getElementById("txtDiscountRatio").addEventListener("input", getTotal);
 // ------------------------ Place Order Methods ------------------------
 
 function confirmOrder() {
+    console.log("Place Order button clicked!");
+    console.log(ordersArray);
+    
+
     let cmbCustomer = document.getElementById("cmbCustomer").value;
     let items = ordersArray.map((element) => `<tr><td>${element.itemName || "Unknown Item"}</td><td class="ps-2">${element.qty || 0}</td></tr>`).join("");
     let discount = document.getElementById("txtDiscountRatio").value || "N/A";
@@ -222,31 +290,52 @@ function confirmOrder() {
     });
 
     swalWithBootstrapButtons.fire({
-        title: "Order Placed..!",
+        title: "Order Placed!",
         html: `
-            <div style="text-align: left; font-family: Arial, sans-serif;">
+            <div style="text-align: left; font-family: Arial, sans-serif; line-height: 1.6;">
                 <p><strong>Customer:</strong> ${cmbCustomer || "N/A"}</p>
-                <table style="width: 100%; border-collapse: collapse;">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
                     <thead>
-                        <tr style="border-bottom: 1px solid #ddd;">
-                            <th style="text-align: left; padding: 5px;">Item</th>
-                            <th style="text-align: left; padding: 5px;">Quantity</th>
+                        <tr style="background-color: #f8f9fa; border-bottom: 2px solid #ddd;">
+                            <th style="text-align: left; padding: 8px; font-weight: bold;">Item</th>
+                            <th style="text-align: left; padding: 8px; font-weight: bold;">Price</th>
+                            <th style="text-align: left; padding: 8px; font-weight: bold;">Quantity</th>
+                            <th style="text-align: left; padding: 8px; font-weight: bold;">Amount</th>
                         </tr>
                     </thead>
                     <tbody>
-                        ${items || "<tr><td colspan='2'>No items added</td></tr>"}
+                        ${
+                            ordersArray
+                                ? ordersArray
+                                      .map(
+                                          (item) => `
+                                          <tr style="border-bottom: 1px solid #ddd;">
+                                              <td style="padding: 8px;">${item.itemName}</td>
+                                              <td style="padding: 8px;">${item.price.toFixed(2)}</td>
+                                              <td style="padding: 8px;">${item.qty}</td>
+                                              <td style="padding: 8px;">${(item.price * item.qty).toFixed(2)}</td>
+                                          </tr>`
+                                      )
+                                      .join("")
+                                : "<tr><td colspan='4' style='text-align: center; padding: 8px;'>No items added</td></tr>"
+                        }
                     </tbody>
                 </table>
-                <br>
-                <p style="margin-top: 10px;"><strong>Total Amount:</strong> LKR ${totalAmount.toFixed(2)}</p>
-                <p><strong>Discount:</strong> ${discount}%</p>
-                <p><strong>Amount:</strong> LKR ${finalAmount.toFixed(2)}</p>
+                <p style="margin-top: 10px; font-size: 1rem;">
+                    <strong>Total Amount:</strong> LKR ${totalAmount.toFixed(2)}
+                </p>
+                <p style="font-size: 1rem;">
+                    <strong>Discount:</strong> ${discount}%
+                </p>
+                <p style="font-size: 1rem;">
+                    <strong>Final Amount:</strong> LKR ${finalAmount.toFixed(2)}
+                </p>
             </div>
         `,
         showCancelButton: true,
         confirmButtonText: "Print Bill",
         cancelButtonText: "Cancel",
-        reverseButtons: true
+        reverseButtons: true,    
     }).then((result) => {
         if (result.isConfirmed) {
             const doc = new jsPDF('p', 'mm', 'a5');

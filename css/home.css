@@ -291,6 +291,65 @@ body {
     background-color: #0056b3;
 }
 
+/* ------------------------ Order Placed SWAL ------------------- */
+
+.swal2-popup {
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 600px; /* Set a limit for modal width */
+}
+
+.swal2-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.swal2-html-container {
+    font-size: 1rem;
+    color: #555;
+}
+
+table {
+    width: 100%;
+    font-size: 0.95rem;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f8f9fa;
+    text-align: left;
+    padding: 8px;
+    border-bottom: 2px solid #ddd;
+}
+
+table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.swal2-confirm {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+.swal2-cancel {
+    background-color: #dc3545;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-right: 15px;
+}
+
+
 
 /* ------------------- Pop-Up Custom ----------------------- */
 
