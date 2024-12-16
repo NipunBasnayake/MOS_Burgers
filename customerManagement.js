@@ -61,13 +61,8 @@ function addCustomer() {
 function loadAllCustomers() {
     let scrollableDiv = document.getElementById("customerList");
 
-    if (customersArray.length === 0) {
-        scrollableDiv.innerHTML = `<p class="text-center mt-3">No customers available.</p>`;
-        return;
-    }
-
     let tableHTML = `
-        <table class="table table-bordered table-striped table-light w-75 mx-auto">
+        <table class="table table-bordered table-striped table-light mx-auto" style="width:95%">
             <thead class="table-dark">
                 <tr>
                     <th>ID</th>
@@ -171,7 +166,7 @@ function loadAllCustomers(customersToDisplay = customersArray) {
     }
 
     let tableHTML = `
-        <table class="table table-bordered table-striped table-light w-75 mx-auto">
+        <table class="table table-bordered table-striped table-light mx-auto" style="width:95%">
             <thead class="table-dark">
                 <tr>
                     <th>ID</th>

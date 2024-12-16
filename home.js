@@ -214,13 +214,27 @@ document.getElementById("txtDiscountRatio").addEventListener("input", getTotal);
 // ------------------------ Place Order Methods ------------------------
 
 function confirmOrder() {
-    console.log("Place Order button clicked!");
-    console.log(ordersArray);
-    
-
     let cmbCustomer = document.getElementById("cmbCustomer").value;
     let items = ordersArray.map((element) => `<tr><td>${element.itemName || "Unknown Item"}</td><td class="ps-2">${element.qty || 0}</td></tr>`).join("");
-    let discount = document.getElementById("txtDiscountRatio").value || "N/A";
+    
+    let discount = document.getElementById("txtDiscountRatio").value;
+    discount = discount ? parseFloat(discount) : 0;  
+    
+    const totalAmount = ordersArray.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    const finalAmount = totalAmount - (totalAmount * (discount / 100));
+
+    const orderDetails = {
+        customer: cmbCustomer,
+        items: ordersArray,
+        discount: discount,
+        totalAmount: totalAmount,
+        finalAmount: finalAmount,
+        orderDate: new Date().toLocaleString()
+    };
+
+    let orderHistoryArray = JSON.parse(localStorage.getItem("orderHistory")) || [];
+    orderHistoryArray.push(orderDetails);
+    localStorage.setItem("orderHistory", JSON.stringify(orderHistoryArray));
 
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -245,28 +259,21 @@ function confirmOrder() {
                         </tr>
                     </thead>
                     <tbody>
-                        ${
-                            ordersArray
-                                ? ordersArray
-                                      .map(
-                                          (item) => `
-                                          <tr style="border-bottom: 1px solid #ddd;">
-                                              <td style="padding: 8px;">${item.itemName}</td>
-                                              <td style="padding: 8px;">${item.price.toFixed(2)}</td>
-                                              <td style="padding: 8px;">${item.qty}</td>
-                                              <td style="padding: 8px;">${(item.price * item.qty).toFixed(2)}</td>
-                                          </tr>`
-                                      )
-                                      .join("")
-                                : "<tr><td colspan='4' style='text-align: center; padding: 8px;'>No items added</td></tr>"
-                        }
+                        ${ordersArray.map(item => `
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 8px;">${item.itemName}</td>
+                                <td style="padding: 8px;">${item.price.toFixed(2)}</td>
+                                <td style="padding: 8px;">${item.qty}</td>
+                                <td style="padding: 8px;">${(item.price * item.qty).toFixed(2)}</td>
+                            </tr>
+                        `).join("")}
                     </tbody>
                 </table>
                 <p style="margin-top: 10px; font-size: 1rem;">
                     <strong>Total Amount:</strong> LKR ${totalAmount.toFixed(2)}
                 </p>
                 <p style="font-size: 1rem;">
-                    <strong>Discount:</strong> ${discount}%
+                    <strong>Discount:</strong> ${discount.toFixed(2)}%
                 </p>
                 <p style="font-size: 1rem;">
                     <strong>Final Amount:</strong> LKR ${finalAmount.toFixed(2)}
@@ -276,7 +283,7 @@ function confirmOrder() {
         showCancelButton: true,
         confirmButtonText: "Print Bill",
         cancelButtonText: "Cancel",
-        reverseButtons: true,    
+        reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
             const doc = new jsPDF('p', 'mm', 'a5');
@@ -326,9 +333,9 @@ function confirmOrder() {
             doc.setFontSize(11);
             doc.text(`Total Amount   : LKR ${totalAmount.toFixed(2)}`, leftMargin, yPosition);
             yPosition += 5;
-            doc.text(`Discount Rate  : ${discount}%`, leftMargin, yPosition);
+            doc.text(`Discount Rate  : ${discount.toFixed(2)}%`, leftMargin, yPosition);
             yPosition += 5;
-            doc.text(`Discount Price : ${totalAmount*discount/100}`, leftMargin, yPosition);
+            doc.text(`Discount Price : LKR ${(totalAmount * discount / 100).toFixed(2)}`, leftMargin, yPosition);
             yPosition += 5;
             doc.text(`Final Amount   : LKR ${finalAmount.toFixed(2)}`, leftMargin, yPosition);
             yPosition += 15;

@@ -33,7 +33,7 @@ function loadAllItems() {
                     <th>Type</th>
                     <th>Qty</th>
                     <th>Expire Date</th>
-                    <th>Actions</th>
+                    <th style="text-align: centre;">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +52,7 @@ function loadAllItems() {
                 <td onclick="showItemDetails(${index})">${element.qty}</td>
                 <td onclick="showItemDetails(${index})">${element.expireDate}</td>
                 <td class="text-center">
-                    <button class="btn btn-primary btn-sm" onclick="updateItem(event, ${index})">Update</button>
+                    <button class="btn btn-warning btn-sm" onclick="updateItem(event, ${index})">Update</button>
                     <button class="btn btn-danger btn-sm" onclick="deleteItem(event, ${index})">Delete</button>
                 </td>
             </tr>
