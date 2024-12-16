@@ -122,10 +122,6 @@ body {
 }
 
 
-
-
-
-
 /* -------------------------- Add Customer -------------------------- */
 
 .swal2-popup {
@@ -196,4 +192,10 @@ select.swal2-input {
 
 .swal2-popup .swal2-actions {
     margin-top: 20px; 
+}
+
+
+.actions-column {
+    width: 150px; 
+    text-align: center; 
 }

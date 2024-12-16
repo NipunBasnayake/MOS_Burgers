@@ -403,9 +403,13 @@ function userDetails() {
 
 // -------------------------- Add Customer --------------------------
 
-let customersArray = [];
+let customersArray = JSON.parse(localStorage.getItem("customers")) || []; 
 let cmbCustomer = document.getElementById("cmbCustomer");
 let customersCombobox = `<option value="" disabled selected>Select Customer</option>`;
+
+function saveCustomersToLocalStorage() {
+    localStorage.setItem("customers", JSON.stringify(customersArray));
+}
 
 function loadCustomerArray() {
     customersCombobox = `<option value="" disabled selected>Select Customer</option>`;
@@ -416,6 +420,7 @@ function loadCustomerArray() {
     });
     cmbCustomer.innerHTML = customersCombobox;
 }
+
 loadCustomerArray();
 
 function addCustomer() {
@@ -428,21 +433,25 @@ function addCustomer() {
         showCancelButton: true,
         confirmButtonText: "Add Customer",
         preConfirm: () => {
-            let addCustomerName = document.getElementById("addCustomerName").value;
-            let addMobileNumber = document.getElementById("addMobileNumber").value;
+            let addCustomerName = document.getElementById("addCustomerName").value.trim();
+            let addMobileNumber = document.getElementById("addMobileNumber").value.trim();
 
-            if (!addCustomerName.trim() || !addMobileNumber.trim()) {
+            if (!addCustomerName || !addMobileNumber) {
                 Swal.fire("Error!", "All fields are required, and values must be valid.", "error");
                 return false;
             }
 
             customersArray.push({
+                id: customersArray.length+1, 
                 name: addCustomerName,
                 mobileNumber: addMobileNumber
             });
+
+            saveCustomersToLocalStorage();
             loadCustomerArray();
+
             Swal.fire("Success!", "Customer has been added.", "success");
         }
     });
-
 }
+
