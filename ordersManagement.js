@@ -216,7 +216,6 @@ function searchOrderByDate() {
     const formattedSearchDate = formatDate(searchDate);
     const filteredOrders = getFilteredOrders(formattedSearchDate);
 
-    // Hide the chart and show the table with filtered orders
     const canvasChart = document.getElementById('ordersChart');
     const tableDiv = document.getElementById('ordersList');
     canvasChart.style.display = 'none';
