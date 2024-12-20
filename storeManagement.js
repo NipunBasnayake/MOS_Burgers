@@ -237,7 +237,7 @@ function updateItem(event, index) {
             const updatedPrice = parseFloat(document.getElementById("updatePrice").value);
             const updatedQty = parseInt(document.getElementById("updateQty").value, 10);
             const updatedType = document.getElementById("updateType").value;
-            const updatedImageInput = document.getElementById("updateImage").files[0]; // Get the uploaded file
+            const updatedImageInput = document.getElementById("updateImage").files[0]; 
             const updatedExpireDate = document.getElementById("updateExpireDate").value;
 
             if (!updatedName) {
@@ -262,7 +262,7 @@ function updateItem(event, index) {
             }
 
             const updatedImage = updatedImageInput ? updatedImageInput.name : item.image; 
-
+ 
             itemsList[index] = {
                 ...item,
                 itemName: updatedName,
