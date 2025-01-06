@@ -11,6 +11,10 @@ The MOS Burgers project is a front-end web-based application designed to streaml
     - Menu Items
     - Customers
     - Orders
+- **Order Placement**:
+  - Place orders linked to specific customers for better tracking and management.
+- **Data Storage**:
+  - Store and manage data for items, customers, and orders using JSON arrays.
 - **Sorting**:
   - Sort items, customers, and orders dynamically for better organization.
 - **PDF Generation**:
@@ -22,7 +26,13 @@ The MOS Burgers project is a front-end web-based application designed to streaml
 
 ## **Technologies Used**
 - **Programming Languages**: HTML, CSS (Bootstrap), JavaScript
-- **Library**: jsPDF for generating PDF reports
+- **Libraries**:
+  - **jQuery**: For simplified DOM manipulation and event handling.
+  - **SweetAlert2**: For stylish and customizable alerts.
+  - **Bootstrap**: For responsive design and UI components.
+  - **jsPDF**: For generating PDF reports.
+  - **Bootstrap Icons**: For vector-based icons.
+  - **FontAwesome**: For additional icons.
 
 ---
 
@@ -46,7 +56,6 @@ The MOS Burgers project is a front-end web-based application designed to streaml
 ---
 
 ## **Screenshots**
-### **UI Screenshots**
 
 ![Placeholder for Screenshot 1](Screenshots/home.png)
 ![Placeholder for Screenshot 2](Screenshots/order1.png)
