@@ -29,4 +29,9 @@ public class ItemsController {
     public List<Item> getAll() {
         return itemService.getAll();
     }
+
+    @PostMapping("/uodate")
+    public void update(@RequestBody Item item) {
+        itemService.update(item);
+    }
 }

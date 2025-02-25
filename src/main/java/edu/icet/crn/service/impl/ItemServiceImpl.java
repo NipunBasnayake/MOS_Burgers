@@ -37,4 +37,9 @@ public class ItemServiceImpl implements ItemService {
         itemEntities.forEach(itemEntity -> itemList.add(modelMapper.map(itemEntity, Item.class)));
         return itemList;
     }
+
+    @Override
+    public void update(Item item) {
+        itemRepository.save(modelMapper.map(item, ItemEntity.class));
+    }
 }
