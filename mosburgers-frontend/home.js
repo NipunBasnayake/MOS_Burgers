@@ -34,97 +34,98 @@ function categorizeItems() {
 
 // ----------------- Sorting Buttons -----------------
 
-let allItems = ``;
+let items = ``;
 let scrollableDiv = document.getElementById("scrollableDiv");
 
 function loadAllItems() {
-    allItems = '';
+    items = '';
 
-    itemsList.forEach((element, index) => {
-        allItems += `
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${index})">
-                <div class="card">
-                    <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
-                    <div class="card-body">
-                        <h5 class="card-title" id="itemName-${index}">${element.itemName}</h5>
-                        <p class="card-text" id="itemPrice-${index}">LKR ${element.price}</p>
-                    </div>
-                </div>
-            </div>`;
-    });
-    scrollableDiv.innerHTML = allItems;
-}
-
-function loadBurgers() {
-    allItems = '';
-
-    burgersArray.forEach((element, index) => {
-        allItems += `
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${index})">
-                <div class="card">
-                    <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
-                    <div class="card-body">
-                        <h5 class="card-title" id="itemName-${index}">${element.itemName}</h5>
-                        <p class="card-text" id="itemPrice-${index}">LKR ${element.price}</p>
-                    </div>
-                </div>
-            </div>`;
-    });
-    scrollableDiv.innerHTML = allItems;
-}
-
-function loadBeverages() {
-    allItems = '';
-
-    beveragesArray.forEach((element, index) => {
-        allItems += `
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${index})">
-                <div class="card">
-                    <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
-                    <div class="card-body">
-                        <h5 class="card-title" id="itemName-${index}">${element.itemName}</h5>
-                        <p class="card-text" id="itemPrice-${index}">LKR ${element.price}</p>
-                    </div>
-                </div>
-            </div>`;
-    });
-    scrollableDiv.innerHTML = allItems;
-}
-
-function loadDesserts() {
-    allItems = '';
-
-    dessertsArray.forEach((element) => {
-        allItems += `
+    itemsList.forEach((element) => {
+        items += `
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${element.id})">
                 <div class="card">
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
-                        <h5 class="card-title" id="itemName-${element.id}">${element.itemName}</h5>
+                        <h5 class="card-title" id="itemName-${element.id}">${element.name}</h5>
                         <p class="card-text" id="itemPrice-${element.id}">LKR ${element.price}</p>
                     </div>
                 </div>
             </div>`;
     });
-    scrollableDiv.innerHTML = allItems;
+    scrollableDiv.innerHTML = items;
+}
+
+function loadBurgers() {
+    items = '';
+
+    burgersArray.forEach((element) => {
+        items += `
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${element.id})">
+                <div class="card">
+                    <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
+                    <div class="card-body">
+                        <h5 class="card-title" id="itemName-${element.id}">${element.name}</h5>
+                        <p class="card-text" id="itemPrice-${element.id}">LKR ${element.price}</p>
+                    </div>
+                </div>
+            </div>`;
+    });
+    scrollableDiv.innerHTML = items;
+}
+
+function loadBeverages() {
+    items = '';
+
+    beveragesArray.forEach((element) => {
+        items += `
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${element.id})">
+                <div class="card">
+                    <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
+                    <div class="card-body">
+                        <h5 class="card-title" id="itemName-${element.id}">${element.name}</h5>
+                        <p class="card-text" id="itemPrice-${element.id}">LKR ${element.price}</p>
+                    </div>
+                </div>
+            </div>`;
+    });
+    scrollableDiv.innerHTML = items;
+}
+
+function loadDesserts() {
+    items = '';
+
+    dessertsArray.forEach((element) => {
+        items += `
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" onclick="addToOrder(${element.id})">
+                <div class="card">
+                    <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
+                    <div class="card-body">
+                        <h5 class="card-title" id="itemName-${element.id}">${element.name}</h5>
+                        <p class="card-text" id="itemPrice-${element.id}">LKR ${element.price}</p>
+                    </div>
+                </div>
+            </div>`;
+    });
+    scrollableDiv.innerHTML = items;
 }
 
 loadItemsFromDB();
 
 
-
 // ----------------- Add To Order -----------------
-
 let ordersArray = [];
 let ordersFlow = document.getElementById("ordersFlow");
 
-function addToOrder(id) {
-    let name = document.getElementById(`itemName-${id}`).innerText.trim();
-    let item = itemsList.find(element => element.itemName.trim() === name);
+function addToOrder(index) {
 
-    if (item && !ordersArray.some(order => order.id === item.id)) {
-        item.qty = 1; 
-        ordersArray.push(item);
+    let item = itemsList.find(item => item.id === index);
+    if (item) {
+        let order = ordersArray.find(order => order.id === index);
+        if (order) {
+            order.qty++;
+        } else {
+            ordersArray.push({ ...item, qty: 1 });
+        }
         renderOrders();
         getTotal();
     }
@@ -161,7 +162,7 @@ function renderOrders() {
         let orderPrice = element.qty * element.price;
         orderBody += `
             <div class="order-item d-flex align-items-center border-1 border-primary justify-content-between py-2" id="order-item-${element.id}">
-                <span class="item-name flex-grow-1">${element.itemName}</span>
+                <span class="item-name flex-grow-1">${element.name}</span>
                 <div class="item-qty-controls d-flex align-items-center mx-3">
                     <button class="btn btn-sm btn-outline-primary" onclick="decrementQty(${element.id})">-</button>
                     <span class="item-qty mx-2">${element.qty}</span>
@@ -215,10 +216,10 @@ document.getElementById("txtDiscountRatio").addEventListener("input", getTotal);
 function confirmOrder() {
     let cmbCustomer = document.getElementById("cmbCustomer").value;
     let items = ordersArray.map((element) => `<tr><td>${element.itemName || "Unknown Item"}</td><td class="ps-2">${element.qty || 0}</td></tr>`).join("");
-    
+
     let discount = document.getElementById("txtDiscountRatio").value;
-    discount = discount ? parseFloat(discount) : 0;  
-    
+    discount = discount ? parseFloat(discount) : 0;
+
     const totalAmount = ordersArray.reduce((sum, item) => sum + (item.price * item.qty), 0);
     const finalAmount = totalAmount - (totalAmount * (discount / 100));
 
@@ -300,7 +301,7 @@ function confirmOrder() {
             doc.setFontSize(18);
             doc.text("INVOICE", pageWidth / 2, yPosition, null, null, "center");
             yPosition += 10;
-            
+
             doc.setFontSize(11);
 
             doc.text(`Customer: ${cmbCustomer || "N/A"}`, leftMargin, yPosition);
@@ -310,14 +311,14 @@ function confirmOrder() {
 
             doc.setFontSize(11);
             doc.setLineWidth(0.5);
-            doc.setFont("","bold");
+            doc.setFont("", "bold");
             doc.rect(leftMargin, yPosition, 108, 7);
             doc.text("Item", leftMargin + 5, yPosition + 5);
             doc.text("Price", leftMargin + 50, yPosition + 5);
             doc.text("Qty", leftMargin + 73, yPosition + 5);
             doc.text("Amount", leftMargin + 90, yPosition + 5);
 
-            doc.setFont("","regular");
+            doc.setFont("", "regular");
             ordersArray.forEach((element) => {
                 yPosition += 7;
                 doc.rect(leftMargin, yPosition, 108, 7);
@@ -325,7 +326,7 @@ function confirmOrder() {
                 doc.text(itemName, leftMargin + 5, yPosition + 5);
                 doc.text(`${element.price.toFixed(2)}`, leftMargin + 50, yPosition + 5);
                 doc.text(`${element.qty || 0}`, leftMargin + 75, yPosition + 5);
-                doc.text(`${(element.qty*element.price).toFixed(2)}`, leftMargin + 90, yPosition + 5);
+                doc.text(`${(element.qty * element.price).toFixed(2)}`, leftMargin + 90, yPosition + 5);
             });
             yPosition += 17;
 
@@ -407,27 +408,42 @@ function userDetails() {
 }
 
 
-// -------------------------- Add Customer --------------------------
+// -------------------------- Load Customer data from DB --------------------------
 
-let customersArray = JSON.parse(localStorage.getItem("customers")) || []; 
-let cmbCustomer = document.getElementById("cmbCustomer");
-let customersCombobox = `<option value="" disabled selected>Select Customer</option>`;
+let customersArray = JSON.parse(localStorage.getItem("customers")) || [];
 
-function saveCustomersToLocalStorage() {
-    localStorage.setItem("customers", JSON.stringify(customersArray));
+function loadCustomersFromDB() {
+    console.log("Loading customers from DB");
+
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+    };
+
+    fetch("http://localhost:8080/customer/all", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+            customersArray = result;
+            loadCustomerComboBox();
+        })
+        .catch((error) => console.error("Error loading customers:", error));
 }
 
-function loadCustomerArray() {
-    customersCombobox = `<option value="" disabled selected>Select Customer</option>`;
+function loadCustomerComboBox() {
+    let cmbCustomer = document.getElementById("cmbCustomer");
+    let customersCombobox = `<option value="" disabled selected>Select Customer</option>`;
+
     customersArray.forEach(element => {
-        customersCombobox += `
-            <option value="${element.name}">${element.name}</option>
-        `;
+        customersCombobox += `<option value="${element.name}">${element.name}</option>`;
     });
+
     cmbCustomer.innerHTML = customersCombobox;
 }
 
-loadCustomerArray();
+loadCustomersFromDB();
+
+
+// -------------------------- Add Customer to DB --------------------------
 
 function addCustomer() {
     Swal.fire({
@@ -447,17 +463,34 @@ function addCustomer() {
                 return false;
             }
 
-            customersArray.push({
-                id: customersArray.length+1, 
-                name: addCustomerName,
-                mobileNumber: addMobileNumber
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            const raw = JSON.stringify({
+                "name": addCustomerName,
+                "mobile": addMobileNumber
             });
 
-            saveCustomersToLocalStorage();
-            loadCustomerArray();
+            const requestOptions = {
+                method: "POST",
+                headers: myHeaders,
+                body: raw,
+                redirect: "follow"
+            };
 
-            Swal.fire("Success!", "Customer has been added.", "success");
+            return fetch("http://localhost:8080/customer/add", requestOptions)
+                .then(response => response.text())
+                .then(() => {
+                    Swal.fire("Success!", "Customer has been added.", "success").then(() => {
+                        loadCustomersFromDB();
+                    });
+                })
+                .catch(error => {
+                    console.error("Error adding customer:", error);
+                    Swal.fire("Error!", "Failed to add customer. Try again.", "error");
+                });
         }
     });
 }
+
 
