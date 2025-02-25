@@ -1,0 +1,110 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-image: url('../images/background.jpg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: -1;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#loginDiv {
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+#MosBurger {
+  font-family: 'Koulen', sans-serif;
+  font-size: 4rem;
+  color: #EAA000;
+}
+
+#MOSpart {
+  color: #D32500;
+}
+
+#h2Welcome {
+  font-family: 'Afacad', sans-serif;
+  font-size: 2.5rem;
+}
+
+#p {
+  font-family: 'Afacad', sans-serif;
+  font-size: 1.3rem;
+}
+
+#lbl {
+  font-family: 'Afacad', sans-serif;
+}
+
+#btnSignin {
+  background: #09AA29;
+  padding: 10px 30px;
+  border-radius: 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#btnSignin:hover {
+  background: #04811d;
+}
+
+.sign-up-link {
+  color: #09AA29;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.custom-swal {
+  border-radius: 20px;
+}
+
+.custom-btn {
+  background-color: #09AA29;
+  color: white;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px 30px;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.custom-btn:hover {
+  background-color: #04811d;
+  transform: scale(1.05);
+}

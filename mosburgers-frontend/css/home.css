@@ -1,0 +1,389 @@
+body {
+    font-family: 'Helvetica', sans-serif;
+    background-color: #e0e0e0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------------------- Left Sidebar ---------------------- */
+
+.sidebar {
+    background-color: #ffffff;
+    padding: 40px 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#MosBurger {
+    font-family: 'Koulen', sans-serif;
+    font-size: 3.2rem;
+    color: #ffae00;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.sidebar-items {
+    flex-grow: 1;
+}
+
+.sidebar-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.sidebar-item button {
+    width: 90%;
+    padding: 12px;
+    background-color: #495057;
+    border: none;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar-item button:hover {
+    background-color: #e33e3e;
+    transform: scale(1.04);
+}
+
+.sidebar-account {
+    margin-top: auto;
+}
+
+
+/* ---------------------- Content ---------------------- */
+
+.filter-buttons {
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.filter-buttons button {
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    align-items: center;
+    transition: transform 0.3s ease;
+    background-color: #ea0000;
+    color: white;
+    border: none;
+}
+
+.filter-buttons button:hover {
+    transform: scale(1.05);
+    background-color: #ff5733;
+    color: white;
+}
+
+.filter-buttons button:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+#txtSearchBar{
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    outline: none;
+}
+
+#btnSearch {
+    margin-left: auto;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #ea0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#searchBar{
+    display: flex;
+    border: 2px solid red;
+    background-color: white;
+    border-radius: 30px;
+    margin-bottom: 10px;
+}
+
+
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.card-title:hover {
+    color: #007bff;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #ff5733;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 5px;
+}
+
+#scrollableDiv {
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow: auto;
+    height: 770px;
+}
+
+#searchDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
+    border-radius: 30px;
+}
+
+
+
+/* ---------------------- Right Sidebar ---------------------- */
+
+.sidebar-right {
+    background-color: #ffffff;
+    height: 100vh;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#cmbCustomer {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #d3d4ce;
+    border-radius: 5px;
+    font-size: 18px;
+    background-color: #fff;
+    color: #023246; 
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+#btnAddCustomer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #287194; 
+    color: #fff;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+}
+
+#btnAddCustomer:hover {
+    background-color: #023246; 
+}
+
+
+
+
+
+
+#orderPlaceHeader {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#placeHr {
+    border: 2px solid #333;
+    margin-bottom: 20px;
+}
+
+#ordersFlow {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #333;
+}
+
+.order-item p,
+.btn-close {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.order-summary {
+    background-color: #ffffff;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    color: #333;
+}
+
+.order-summary .order-total {
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.5rem;
+    transition: background-color 0.3s;
+}
+
+.order-summary .order-total:hover {
+    background-color: #0056b3;
+}
+
+/* ------------------------ Order Placed SWAL ------------------- */
+
+.swal2-popup {
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 600px; /* Set a limit for modal width */
+}
+
+.swal2-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.swal2-html-container {
+    font-size: 1rem;
+    color: #555;
+}
+
+table {
+    width: 100%;
+    font-size: 0.95rem;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f8f9fa;
+    text-align: left;
+    padding: 8px;
+    border-bottom: 2px solid #ddd;
+}
+
+table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.swal2-confirm {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+.swal2-cancel {
+    background-color: #dc3545;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-right: 15px;
+}
+
+
+
+/* ------------------- Pop-Up Custom ----------------------- */
+
+.custom-swal {
+    background-color: #f4f4f9;
+    border-radius: 10px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.custom-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-cancel-btn {
+    background-color: #646464;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-btn:hover {
+    background-color: #45a049;
+}
+
+.custom-cancel-btn:hover {
+    background-color: #3f3f3f;
+}

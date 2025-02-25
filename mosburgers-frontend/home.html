@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOS Burgers Home</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Koulen&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="icon" type="image/png" href="images/MOSBURGERS icon.png">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+
+            <!-- -------------------- Left Sidebar -------------------- -->
+
+            <div class="col-lg-2 col-md-3 col-sm-12 sidebar">
+                <div class="sidebar-header">
+                    <h1 id="MosBurger"><span id="MOSpart" style="color: rgb(255, 0, 0);">MOS </span>BURGERS</h1>
+                </div>
+                <div class="sidebar-items">
+                    <div class="sidebar-item">
+                        <button class="btn btn-secondary mb-3" onclick="window.location.href='home.html'">
+                            <i class="fa fa-home"></i> Home
+                        </button>
+                    </div>
+                    <div class="sidebar-item">
+                        <button class="btn btn-secondary mb-3" onclick="window.location.href='storeManagement.html'">
+                            <i class="fa fa-box"></i> Items Management
+                        </button>
+                    </div>                    
+                    <div class="sidebar-item">
+                        <button class="btn btn-secondary mb-3" onclick="window.location.href='customerManagement.html'">
+                            <i class="fa fa-user"></i> Customer Management
+                        </button>
+                    </div>
+                    <div class="sidebar-item">
+                        <button class="btn btn-secondary mb-3" onclick="window.location.href='ordersManagement.html'">
+                            <i class="fa fa-shopping-cart"></i> Orders Management
+                        </button>
+                    </div>
+                </div>
+                <div class="sidebar-account">
+                    <div class="sidebar-item">
+                        <button class="btn btn-secondary mb-3" onclick="userDetails()">
+                            <i class="bi bi-person-circle"></i> Cashier 01
+                        </button>
+                    </div>
+                    <div class="sidebar-item">
+                        <button class="btn btn-secondary mb-3" onclick="window.location.href='index.html'">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Main Content Area -->
+            <div class="col-lg-7 col-md-6 col-sm-12">
+                <div class="main-content">
+                    <div class="filter-buttons mb-4">
+                        <button class="me-2" onclick="loadAllItems()">
+                            <i class="fas fa-box-open"></i> All Items
+                        </button>
+                        <button class="me-2" onclick="loadBurgers()">
+                            <i class="fas fa-hamburger"></i> Burgers
+                        </button>
+                        <button class="me-2" onclick="loadBeverages()">
+                            <i class="fas fa-cocktail"></i> Beverages
+                        </button>
+                        <button class="me-2" onclick="loadDesserts()">
+                            <i class="fas fa-ice-cream"></i> Desserts
+                        </button>
+                    </div>
+
+                    <div id="searchBar" class="w-50">
+                        <input type="text" id="txtSearchBar" placeholder="Search Item">
+                        <button id="btnSearch" onclick="searchItem()" aria-label="Search">
+                            <i class="fas fa-search" aria-hidden="true"></i> Search
+                        </button>
+                    </div>
+
+                    <!-- Content Area -->
+                    <div class="row pt-1" id="scrollableDiv"></div>
+                </div>
+            </div>
+
+
+
+            <!-- -------------------- Right Sidebar (Place Order)-------------------- -->
+
+            <div class="col-lg-3 col-md-3 col-sm-12 sidebar-right">
+
+                <div class="d-flex">
+                    <select name="customers" id="cmbCustomer" style="width: 100%;">
+                        <option value="" disabled selected>Select Customer</option>
+                        <option value="customer1">Customer One</option>
+                        <option value="customer2">Customer Two</option>
+                        <option value="customer3">Customer Three</option>
+                    </select>
+                    <button id="btnAddCustomer" onclick="addCustomer()">
+                        <i class="fa fa-plus"></i> Add Customer
+                    </button>
+                </div>
+                
+                <hr id="placeHr">
+                <h2 id="orderPlaceHeader">Place Order</h2>
+                <hr id="placeHr">
+                <div id="ordersFlow" class="orders-list"></div>
+                <div class="order-summary">
+                    <div class="d-flex justify-content-between ps-2 pe-2">
+                        <p><strong>Total Amount:</strong></p>
+                        <p id="totalPrice"></p>
+                    </div>
+                    <div class="d-flex justify-content-between ps-2 pe-2">
+                        <p><strong>Discount:</strong> <span id="discountPercent"><input type="number"
+                                    id="txtDiscountRatio" style="width: 50px;"> %</span></p>
+                        <p id="discountPrice"></p>
+                    </div>
+                    <div id="payDiv" class="order-total d-flex align-items-center justify-content-between p-3"
+                        onclick="confirmOrder()">
+                        <h2 class="mb-0">Pay</h2>
+                        <h2 class="mb-0" id="finalPrice">LKR 0</h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script type="" src="home.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+

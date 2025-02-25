@@ -1,0 +1,295 @@
+body {
+    font-family: 'Helvetica', sans-serif;
+    background-color: #e0e0e0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------------------- Left Sidebar ---------------------- */
+
+.sidebar {
+    background-color: #ffffff;
+    padding: 40px 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.filter-buttons button {
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    align-items: center;
+    transition: transform 0.3s ease;
+    background-color: #ea0000;
+    color: white;
+    border: none;
+}
+
+#MosBurger {
+    font-family: 'Koulen', sans-serif;
+    font-size: 3.2rem;
+    color: #ffae00;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.sidebar-items {
+    flex-grow: 1;
+}
+
+.sidebar-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.sidebar-item button {
+    width: 90%;
+    padding: 12px;
+    background-color: #495057;
+    border: none;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar-item button:hover {
+    background-color: #e33e3e;
+    transform: scale(1.04);
+}
+
+.sidebar-account {
+    margin-top: auto;
+}
+
+
+/* ---------------------- Content ---------------------- */
+
+.filter-buttons {
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.filter-buttons button:hover {
+    transform: scale(1.05);
+    background-color: #ff5733;
+    color: white;
+}
+
+.filter-buttons button:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.card-title:hover {
+    color: #007bff;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #ff5733;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 5px;
+}
+
+#scrollableDiv {
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow: auto;
+    height: 830px;
+}
+
+
+
+#txtSearchBar{
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    outline: none;
+}
+
+#btnSearch {
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    align-items: center;
+    transition: transform 0.3s ease;
+    background-color: #ea0000;
+    color: white;
+    border: none;
+}
+
+#searchBar{
+    border: 2px solid red;
+    background-color: white;
+    border-radius: 30px;
+}
+
+/* ------------------------ Card ---------------------- */
+
+.card-body {
+    padding: 1.2rem;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.card-img-top {
+    max-height: 120px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-body .row {
+    margin-bottom: 8px;
+}
+
+.card-body .col-6 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.card-body .text-end {
+    text-align: right;
+}
+
+.actions-column {
+    width: 200px; 
+    text-align: center; 
+}
+
+
+
+
+/* -------------------------- Add Item -------------------------- */
+
+.swal2-popup {
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.swal2-input {
+    border-radius: 10px; 
+    border: 1px solid #ddd; 
+    padding: 10px 15px;
+    font-size: 16px;
+    margin-bottom: 10px; 
+    width: 75%;
+}
+
+#addType, #updateType{
+    margin-top: 15px;
+}
+
+select.swal2-input {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: 75%;
+    background-color: white; 
+    color: #333;
+}
+
+.swal2-confirm, .swal2-cancel {
+    border-radius: 8px; 
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease; 
+    margin-bottom: 20px;
+}
+
+.swal2-confirm {
+    background-color: #09AA29;
+    color: white;
+    border: none;
+}
+
+.swal2-confirm:hover {
+    background-color: #04811d; 
+}
+
+.swal2-cancel {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+
+.swal2-cancel:hover {
+    background-color: #495057;
+}
+
+.swal2-title {
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.swal2-popup .swal2-actions {
+    margin-top: 20px; 
+}
+
