@@ -25,13 +25,14 @@ public class CustomerController {
         return customerService.getAll();
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updateCustomer(@RequestBody Customer customer) {
         customerService.update(customer);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteCustomer(@RequestBody Integer id) {
+    @DeleteMapping("/delete/{id}")
+    public void deleteCustomer(@PathVariable int id) {
         customerService.delete(id);
     }
+
 }

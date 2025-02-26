@@ -56,15 +56,15 @@ function login() {
 // ----------------------------- Items Array to Local Storage ---------------------------------
 
 // let itemsList = [
-//     {
-//         id: 1,
-//         itemName: "Green Chilli Burger",
-//         price: 1350,
-//         qty: 15,
-//         type: "Burger",
-//         image: "greenChilliCheeseBurger.jpg",
-//         expireDate: "12/12/2024"
-//     },
+    // {
+    //     id: 1,
+    //     itemName: "Green Chilli Burger",
+    //     price: 1350,
+    //     qty: 15,
+    //     type: "Burger",
+    //     image: "greenChilliCheeseBurger.jpg",
+    //     expireDate: "12/12/2024"
+    // },
 //     {
 //         id: 2,
 //         itemName: "Pudding",

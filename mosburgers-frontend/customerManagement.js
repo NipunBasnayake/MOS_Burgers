@@ -1,191 +1,150 @@
-// -------------------------- Load Customer data from DB --------------------------
+// -------------------------- State Management --------------------------
+let customersArray = [];
 
+// -------------------------- DOM Elements --------------------------
+const customerList = document.getElementById("customerList");
+const txtSearchBar = document.getElementById("txtSearchBar");
 
-
-function loadCustomersFromDB() {
-
-    const requestOptions = {
-        method: "GET",
-        redirect: "follow"
-    };
-
-    fetch("http://localhost:8080/customer/all", requestOptions)
-        .then((response) => response.json())
-        .then((result) => {
-            customersArray = result;
-            populateCustomerTable();
-        })
-        .catch((error) => console.error("Error loading customers:", error));
+// -------------------------- Load Customer Data from DB --------------------------
+async function loadCustomersFromDB() {
+    try {
+        const response = await fetch("http://localhost:8080/customer/all");
+        if (!response.ok) throw new Error("Failed to fetch customers");
+        customersArray = await response.json();
+        populateCustomerTable(customersArray);
+    } catch (error) {
+        console.error("Error loading customers:", error);
+        customerList.innerHTML = `<p class="text-center mt-3">Failed to load customers. Please try again later.</p>`;
+    }
 }
 
-
-
-loadCustomersFromDB();
-
-
 // -------------------------- Add Customer to DB --------------------------
-
-function addCustomer() {
-    Swal.fire({
-        title: `Add Customer`,
+async function addCustomer() {
+    const { value: formValues } = await Swal.fire({
+        title: "Add Customer",
         html: `
-            <input type="text" id="addCustomerName" class="swal2-input" placeholder="Customer Name">
-            <input type="text" id="addMobileNumber" class="swal2-input" placeholder="Mobile Number">
+            <input type="text" id="addCustomerName" class="swal2-input" placeholder="Customer Name" required>
+            <input type="text" id="addMobileNumber" class="swal2-input" placeholder="Mobile Number" required>
         `,
         showCancelButton: true,
         confirmButtonText: "Add Customer",
         preConfirm: () => {
-            let addCustomerName = document.getElementById("addCustomerName").value.trim();
-            let addMobileNumber = document.getElementById("addMobileNumber").value.trim();
-
-            if (!addCustomerName || !addMobileNumber) {
-                Swal.fire("Error!", "All fields are required, and values must be valid.", "error");
+            const name = document.getElementById("addCustomerName").value.trim();
+            const mobile = document.getElementById("addMobileNumber").value.trim();
+            if (!name || !mobile) {
+                Swal.showValidationMessage("All fields are required");
                 return false;
             }
-
-            const myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-
-            const raw = JSON.stringify({
-                "name": addCustomerName,
-                "mobile": addMobileNumber
-            });
-
-            const requestOptions = {
-                method: "POST",
-                headers: myHeaders,
-                body: raw,
-                redirect: "follow"
-            };
-
-            return fetch("http://localhost:8080/customer/add", requestOptions)
-                .then(response => response.text())
-                .then(() => {
-                    Swal.fire("Success!", "Customer has been added.", "success").then(() => {
-                        loadCustomersFromDB();
-                    });
-                })
-                .catch(error => {
-                    console.error("Error adding customer:", error);
-                    Swal.fire("Error!", "Failed to add customer. Try again.", "error");
-                });
+            return { name, mobile };
         }
     });
+
+    if (formValues) {
+        try {
+            const response = await fetch("http://localhost:8080/customer/add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formValues)
+            });
+            if (!response.ok) throw new Error("Failed to add customer");
+            Swal.fire("Success!", "Customer has been added.", "success");
+            await loadCustomersFromDB();
+        } catch (error) {
+            console.error("Error adding customer:", error);
+            Swal.fire("Error!", "Failed to add customer. Try again.", "error");
+        }
+    }
 }
 
-console.log(customersArray);
+// -------------------------- Update Customer --------------------------
+async function updateCustomer(id) {
+    const customer = customersArray.find(c => c.id === id);
+    if (!customer) {
+        Swal.fire("Error!", "Customer not found.", "error");
+        return;
+    }
 
-
-// ---------------------- Populate Customer Table --------------------------
-
-function populateCustomerTable() {
-    let scrollableDiv = document.getElementById("customerList");
-
-    let tableHTML = `
-        <table class="table table-bordered table-striped table-light mx-auto" style="width:95%">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Mobile</th>
-                    <th class="actions-column">Actions</th> <!-- Apply custom class here -->
-                </tr>
-            </thead>
-            <tbody>
-    `;
-
-    customersArray.forEach((customer, index) => {
-        tableHTML += `
-            <tr>
-                <td>${index + 1}</td>
-                <td>${customer.name}</td>
-                <td>${customer.mobileNumber}</td>
-                <td class="actions-column"> <!-- Apply custom class here -->
-                    <button class="btn btn-success btn-sm" onclick="updateCustomer(${index})">
-                        Update
-                    </button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteCustomer(${index})">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        `;
-    });
-
-    tableHTML += `
-            </tbody>
-        </table>
-    `;
-
-    scrollableDiv.innerHTML = tableHTML;
-}
-
-
-// ---------------------- Update Customer --------------------------
-
-function updateCustomer(index) {
-    const customer = customersArray[index];
-
-    Swal.fire({
-        title: `Update Customer`,
+    const { value: formValues } = await Swal.fire({
+        title: "Update Customer",
         html: `
             <input type="text" id="updateCustomerName" class="swal2-input" placeholder="Customer Name" value="${customer.name}">
-            <input type="text" id="updateMobileNumber" class="swal2-input" placeholder="Mobile Number" value="${customer.mobileNumber}">
+            <input type="text" id="updateMobileNumber" class="swal2-input" placeholder="Mobile Number" value="${customer.mobile}">
         `,
         showCancelButton: true,
         confirmButtonText: "Update Customer",
         preConfirm: () => {
-            let updateCustomerName = document.getElementById("updateCustomerName").value.trim();
-            let updateMobileNumber = document.getElementById("updateMobileNumber").value.trim();
-
-            if (!updateCustomerName || !updateMobileNumber) {
-                Swal.fire("Error!", "All fields are required, and values must be valid.", "error");
+            const name = document.getElementById("updateCustomerName").value.trim();
+            const mobile = document.getElementById("updateMobileNumber").value.trim();
+            if (!name || !mobile) {
+                Swal.showValidationMessage("All fields are required");
                 return false;
             }
-
-            customersArray[index] = { 
-                id: customer.id,
-                name: updateCustomerName, 
-                mobileNumber: updateMobileNumber 
-            };
-
-
-            loadAllCustomers();
-
-            Swal.fire("Success!", "Customer details have been updated.", "success");
+            return { name, mobile };
         }
     });
+
+    if (formValues) {
+        try {
+            const response = await fetch("http://localhost:8080/customer/update", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id, ...formValues })
+            });
+            if (!response.ok) throw new Error("Failed to update customer");
+            Swal.fire("Success!", "Customer details have been updated.", "success");
+            await loadCustomersFromDB();
+        } catch (error) {
+            console.error("Error updating customer:", error);
+            Swal.fire("Error!", "Failed to update customer. Please try again.", "error");
+        }
+    }
 }
 
+// -------------------------- Delete Customer --------------------------
+async function deleteCustomer(id) {
+    const confirmResult = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+    });
 
-// ---------------------- Delete Customer --------------------------
-
-function deleteCustomer(index) {
-    customersArray.splice(index, 1);  
-
-    loadAllCustomers(); 
+    if (confirmResult.isConfirmed) {
+        try {
+            const response = await fetch(`http://localhost:8080/customer/delete/${id}`, {
+                method: "DELETE",
+            });
+            if (!response.ok) throw new Error("Failed to delete customer");
+            Swal.fire("Deleted!", "Customer has been deleted.", "success");
+            await loadCustomersFromDB();
+        } catch (error) {
+            console.error("Error deleting customer:", error);
+            Swal.fire("Error!", "Failed to delete customer. Please try again.", "error");
+        }
+    }
 }
 
-
-// ---------------------- Search Customer --------------------------
-
+// -------------------------- Search Customer --------------------------
 function searchCustomer() {
-    const searchQuery = document.getElementById("txtSearchBar").value.trim().toLowerCase();
-    const filteredCustomers = customersArray.filter(customer => 
+    const searchQuery = txtSearchBar.value.trim().toLowerCase();
+    const filteredCustomers = customersArray.filter(customer =>
         customer.name.toLowerCase().includes(searchQuery)
     );
-    loadAllCustomers(filteredCustomers); 
+    populateCustomerTable(filteredCustomers);
 }
 
-function loadAllCustomers(customersToDisplay = customersArray) {
-    let scrollableDiv = document.getElementById("customerList");
+// -------------------------- Populate Customer Table --------------------------
+function populateCustomerTable(customers = customersArray) {
+    if (!customerList) return;
 
-    if (customersToDisplay.length === 0) {
-        scrollableDiv.innerHTML = `<p class="text-center mt-3">No customers found.</p>`;
+    if (customers.length === 0) {
+        customerList.innerHTML = `<p class="text-center mt-3">No customers found.</p>`;
         return;
     }
 
-    let tableHTML = `
+    const tableHTML = `
         <table class="table table-bordered table-striped table-light mx-auto" style="width:95%">
             <thead class="table-dark">
                 <tr>
@@ -196,30 +155,30 @@ function loadAllCustomers(customersToDisplay = customersArray) {
                 </tr>
             </thead>
             <tbody>
-    `;
-
-    customersToDisplay.forEach((customer, index) => {
-        tableHTML += `
-            <tr>
-                <td>${index + 1}</td>
-                <td>${customer.name}</td>
-                <td>${customer.mobileNumber}</td>
-                <td class="actions-column">
-                    <button class="btn btn-primary btn-sm" onclick="updateCustomer(${index})">
-                        Update
-                    </button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteCustomer(${index})">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        `;
-    });
-
-    tableHTML += `
+                ${customers.map((customer, index) => `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${customer.name}</td>
+                        <td>${customer.mobile}</td>
+                        <td class="actions-column">
+                            <button class="btn btn-primary btn-sm" onclick="updateCustomer(${customer.id})">
+                                Update
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteCustomer(${customer.id})">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                `).join("")}
             </tbody>
         </table>
     `;
 
-    scrollableDiv.innerHTML = tableHTML;
+    customerList.innerHTML = tableHTML;
 }
+
+// -------------------------- Event Listeners --------------------------
+txtSearchBar.addEventListener("input", searchCustomer);
+
+// -------------------------- Initialization --------------------------
+loadCustomersFromDB();

@@ -48,7 +48,7 @@ function loadAllItems() {
                 <div class="card">
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
-                        <h5 class="card-title" id="itemName-${element.id}">${element.name}</h5>
+                        <h5 class="card-title" id="itemName-${element.id}">${element.name} - ${element.quantity}</h5>
                         <p class="card-text" id="itemPrice-${element.id}">LKR ${element.price}</p>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ function loadBurgers() {
                 <div class="card">
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
-                        <h5 class="card-title" id="itemName-${element.id}">${element.name}</h5>
+                        <h5 class="card-title" id="itemName-${element.id}">${element.name} - ${element.quantity}</h5>
                         <p class="card-text" id="itemPrice-${element.id}">LKR ${element.price}</p>
                     </div>
                 </div>
@@ -84,7 +84,7 @@ function loadBeverages() {
                 <div class="card">
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
-                        <h5 class="card-title" id="itemName-${element.id}">${element.name}</h5>
+                        <h5 class="card-title" id="itemName-${element.id}">${element.name} - ${element.quantity}</h5>
                         <p class="card-text" id="itemPrice-${element.id}">LKR ${element.price}</p>
                     </div>
                 </div>
@@ -102,7 +102,7 @@ function loadDesserts() {
                 <div class="card">
                     <img src="images/itemImages/${element.image}" class="card-img-top" alt="Item Image">
                     <div class="card-body">
-                        <h5 class="card-title" id="itemName-${element.id}">${element.name}</h5>
+                        <h5 class="card-title" id="itemName-${element.id}">${element.name} - ${element.quantity}</h5>
                         <p class="card-text" id="itemPrice-${element.id}">LKR ${element.price}</p>
                     </div>
                 </div>

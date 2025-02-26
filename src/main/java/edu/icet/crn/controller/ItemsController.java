@@ -40,9 +40,10 @@ public class ItemsController {
         itemService.delete(id);
     }
 
-    @GetMapping("/searchById")
-    public Item searchById(@RequestParam Integer id) {
+    @GetMapping("/searchById/{id}")
+    public Item findById(@PathVariable Integer id) {
         return itemService.findById(id);
     }
+
 
 }

@@ -20,6 +20,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void add(Item item) {
+        System.out.println(item.toString());
         itemRepository.save(modelMapper.map(item, ItemEntity.class));
     }
 
