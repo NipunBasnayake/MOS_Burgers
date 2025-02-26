@@ -18,4 +18,9 @@ public class HomeController {
         orderService.addOrder(order);
     }
 
+    @GetMapping("/lastOrderId")
+    public Integer getLastOrderId() {
+        return orderService.getLastOrderId();
+    }
+
 }

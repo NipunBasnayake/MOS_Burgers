@@ -1,16 +1,10 @@
 let orderHistory = [];
 
-loadOrdersFromLocalStorage();
+
 loadAllOrders();
 
-function saveOrdersToLocalStorage() {
-    localStorage.setItem("orderHistory", JSON.stringify(orderHistory));
-}
 
-function loadOrdersFromLocalStorage() {
-    const storedOrders = localStorage.getItem("orderHistory");
-    orderHistory = storedOrders ? JSON.parse(storedOrders) : [];
-}
+
 
 function loadAllOrders() {
     let scrollableDiv = document.getElementById("ordersList");
@@ -186,7 +180,6 @@ function deleteOrder(index) {
     }).then((result) => {
         if (result.isConfirmed) {
             orderHistory.splice(index, 1);
-            saveOrdersToLocalStorage();
             loadAllOrders();
             Swal.fire(
                 "Deleted!",

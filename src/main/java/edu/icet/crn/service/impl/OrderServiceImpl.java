@@ -14,6 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -44,6 +46,22 @@ public class OrderServiceImpl implements OrderService {
             orderDetailRepository.save(orderDetailEntity);
         }
     }
+
+    @Override
+    public Integer getLastOrderId() {
+        List<OrderEntity> orderEntities = orderRepository.findAll();
+        if (orderEntities.isEmpty()) {
+            return 0;
+        }
+        int lastOrderId = 0;
+        for (OrderEntity order : orderEntities) {
+            if (order.getId() > lastOrderId) {
+                lastOrderId = order.getId();
+            }
+        }
+        return lastOrderId;
+    }
+
 
 }
 

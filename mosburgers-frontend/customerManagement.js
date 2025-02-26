@@ -1,6 +1,6 @@
 // -------------------------- Load Customer data from DB --------------------------
 
-let customersArray = JSON.parse(localStorage.getItem("customers")) || [];
+
 
 function loadCustomersFromDB() {
 
@@ -149,7 +149,7 @@ function updateCustomer(index) {
                 mobileNumber: updateMobileNumber 
             };
 
-            saveItemsToLocalStorage();
+
             loadAllCustomers();
 
             Swal.fire("Success!", "Customer details have been updated.", "success");
@@ -162,7 +162,7 @@ function updateCustomer(index) {
 
 function deleteCustomer(index) {
     customersArray.splice(index, 1);  
-    saveItemsToLocalStorage();
+
     loadAllCustomers(); 
 }
 

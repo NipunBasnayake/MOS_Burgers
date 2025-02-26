@@ -5,20 +5,13 @@ let ordersArray = [];
 let scrollableDiv = document.getElementById("scrollableDiv");
 const ordersFlow = document.getElementById("ordersFlow");
 
-loadItemsFromLocalStorage();
+
 loadAllItems();
 
 
 // ---------------------- Local Storage Functions --------------------------
 
-function saveItemsToLocalStorage() {
-    localStorage.setItem("itemsList", JSON.stringify(itemsList));
-}
 
-function loadItemsFromLocalStorage() {
-    const storedItems = localStorage.getItem("itemsList");
-    itemsList = storedItems ? JSON.parse(storedItems) : [];
-}
 
 
 function loadAllItems() {
@@ -198,7 +191,6 @@ function addItem() {
                 expireDate: addExpireDate,
             });
 
-            saveItemsToLocalStorage();
             loadAllItems();
         },
     }).then((result) => {
@@ -273,7 +265,7 @@ function updateItem(event, index) {
                 expireDate: updatedExpireDate,
             };
 
-            saveItemsToLocalStorage();
+
 
             return true;
         },
@@ -300,7 +292,7 @@ function deleteItem(index) {
         if (result.isConfirmed) {
             itemsList.splice(index, 1);
 
-            saveItemsToLocalStorage();
+
             loadAllItems();
 
             Swal.fire("Deleted!", "The item has been deleted.", "success");
@@ -308,21 +300,4 @@ function deleteItem(index) {
     });
 }
 
-
-// ---------------------- Save to Local Storage --------------------------
-
-function saveItemsToLocalStorage() {
-    localStorage.setItem("itemsList", JSON.stringify(itemsList));
-}
-
-function loadItemsFromLocalStorage() {
-    const storedItems = localStorage.getItem("itemsList");
-    if (storedItems) {
-        itemsList = JSON.parse(storedItems);
-    } else {
-        saveItemsToLocalStorage();
-    }
-}
-
-loadItemsFromLocalStorage();
 

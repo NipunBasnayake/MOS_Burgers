@@ -34,6 +34,28 @@ function categorizeItems() {
     dessertsArray = itemsList.filter(item => item.type === "Dessert");
 }
 
+function loadOrderID() {
+    fetch("http://localhost:8080/home/lastOrderId")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then((result) => {
+            const lastOrderId = parseInt(result, 10);
+            if (!isNaN(lastOrderId)) {
+                let orderIdLable = document.getElementById("lblOrderId");
+                orderIdLable.textContent = `Order ID: ${lastOrderId + 1}`;
+            } else {
+                console.error('Invalid order ID received');
+            }
+        })
+        .catch((error) => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
 // ----------------- Render Items -----------------
 function renderItems(items) {
     return items.map(item => `
@@ -365,3 +387,4 @@ loadDateTime();
 // ----------------- Initialize -----------------
 loadItemsFromDB();
 loadCustomersFromDB();
+loadOrderID();
