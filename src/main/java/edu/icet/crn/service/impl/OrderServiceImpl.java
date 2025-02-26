@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -60,6 +61,27 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         return lastOrderId;
+    }
+
+    @Override
+    public List<Order> getAll() {
+        List<OrderEntity> orderEntities = orderRepository.findAll();
+        List<OrderDetailEntity> orderDetailEntities = orderDetailRepository.findAll();
+
+        List<Order> orders = new ArrayList<>();
+
+        for (OrderEntity order : orderEntities) {
+
+            Order newOrder = modelMapper.map(order, Order.class);
+
+            for (OrderDetailEntity orderDetail : orderDetailEntities) {
+                if (order.getId() == orderDetail.getId()) {
+                    newOrder.getDetails().add(modelMapper.map(orderDetail, OrderDetail.class));
+                }
+            }
+            orders.add(newOrder);
+        }
+        return orders;
     }
 
 
