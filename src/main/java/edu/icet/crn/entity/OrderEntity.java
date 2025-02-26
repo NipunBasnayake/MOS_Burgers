@@ -1,6 +1,5 @@
 package edu.icet.crn.entity;
 
-import edu.icet.crn.dto.OrderDetail;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
