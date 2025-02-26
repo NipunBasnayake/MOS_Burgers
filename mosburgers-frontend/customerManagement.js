@@ -1,27 +1,29 @@
-let customersArray = [];
+// -------------------------- Load Customer data from DB --------------------------
 
-loadCustomersFromLocalStorage();
-loadAllCustomers();
+let customersArray = JSON.parse(localStorage.getItem("customers")) || [];
 
+function loadCustomersFromDB() {
 
-// ---------------------- Local Storage Functions --------------------------
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+    };
 
-function saveItemsToLocalStorage() {
-    localStorage.setItem("customers", JSON.stringify(customersArray));  
+    fetch("http://localhost:8080/customer/all", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+            customersArray = result;
+            populateCustomerTable();
+        })
+        .catch((error) => console.error("Error loading customers:", error));
 }
 
-function loadItemsFromLocalStorage() {
-    const storedCustomers = localStorage.getItem("customers");
-    customersArray = storedCustomers ? JSON.parse(storedCustomers) : [];
-}
-
-function loadCustomersFromLocalStorage() {
-    loadItemsFromLocalStorage(); 
-    loadAllCustomers(); 
-}
 
 
-// ---------------------- Add Customer --------------------------
+loadCustomersFromDB();
+
+
+// -------------------------- Add Customer to DB --------------------------
 
 function addCustomer() {
     Swal.fire({
@@ -41,24 +43,42 @@ function addCustomer() {
                 return false;
             }
 
-            customersArray.push({
-                id: customersArray.length + 1, 
-                name: addCustomerName,
-                mobileNumber: addMobileNumber
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            const raw = JSON.stringify({
+                "name": addCustomerName,
+                "mobile": addMobileNumber
             });
 
-            saveItemsToLocalStorage(); 
-            loadAllCustomers();
+            const requestOptions = {
+                method: "POST",
+                headers: myHeaders,
+                body: raw,
+                redirect: "follow"
+            };
 
-            Swal.fire("Success!", "Customer has been added.", "success");
+            return fetch("http://localhost:8080/customer/add", requestOptions)
+                .then(response => response.text())
+                .then(() => {
+                    Swal.fire("Success!", "Customer has been added.", "success").then(() => {
+                        loadCustomersFromDB();
+                    });
+                })
+                .catch(error => {
+                    console.error("Error adding customer:", error);
+                    Swal.fire("Error!", "Failed to add customer. Try again.", "error");
+                });
         }
     });
 }
 
+console.log(customersArray);
 
-// ---------------------- Load Customer --------------------------
 
-function loadAllCustomers() {
+// ---------------------- Populate Customer Table --------------------------
+
+function populateCustomerTable() {
     let scrollableDiv = document.getElementById("customerList");
 
     let tableHTML = `

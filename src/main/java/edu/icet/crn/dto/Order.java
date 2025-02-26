@@ -16,5 +16,7 @@ public class Order {
     private Integer id;
     private Date date;
     private Integer customerId;
+    private Integer discountRate;
+    private Double totalPrice;
     private List<OrderDetail> details;
 }
