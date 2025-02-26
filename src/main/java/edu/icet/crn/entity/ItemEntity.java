@@ -22,4 +22,14 @@ public class ItemEntity {
     private String type;
     private String image;
     private String expiryDate;
+
+    public void reduceStock(int quantity) {
+        if (this.quantity < quantity) {
+            throw new RuntimeException("Not enough stock available!");
+        }
+        this.quantity -= quantity;
+    }
+
 }
+
+

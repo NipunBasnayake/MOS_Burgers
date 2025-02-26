@@ -8,4 +8,8 @@ public interface CustomerService {
     void addCustomer(Customer customer);
 
     List<Customer> getAll();
+
+    void update(Customer customer);
+
+    void delete(Integer id);
 }

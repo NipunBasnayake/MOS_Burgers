@@ -42,4 +42,15 @@ public class ItemServiceImpl implements ItemService {
     public void update(Item item) {
         itemRepository.save(modelMapper.map(item, ItemEntity.class));
     }
+
+    @Override
+    public void delete(Integer id) {
+        itemRepository.deleteById(id);
+    }
+
+    @Override
+    public Item findById(Integer id) {
+        return modelMapper.map(itemRepository.findById(id), Item.class);
+    }
+
 }

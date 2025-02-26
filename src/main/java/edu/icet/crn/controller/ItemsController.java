@@ -30,8 +30,19 @@ public class ItemsController {
         return itemService.getAll();
     }
 
-    @PostMapping("/uodate")
+    @PutMapping("/update")
     public void update(@RequestBody Item item) {
         itemService.update(item);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Integer id) {
+        itemService.delete(id);
+    }
+
+    @GetMapping("/searchById")
+    public Item searchById(@RequestParam Integer id) {
+        return itemService.findById(id);
+    }
+
 }

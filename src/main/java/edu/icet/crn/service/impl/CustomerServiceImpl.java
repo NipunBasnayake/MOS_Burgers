@@ -27,9 +27,17 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> getAll() {
         List<CustomerEntity> customerEntities = customerRepository.findAll();
         List<Customer> customers = new ArrayList<>();
-        customerEntities.forEach(customerEntity -> {
-            customers.add(modelMapper.map(customerEntity, Customer.class));
-        });
+        customerEntities.forEach(customerEntity -> customers.add(modelMapper.map(customerEntity, Customer.class)));
         return customers;
+    }
+
+    @Override
+    public void update(Customer customer) {
+        customerRepository.save(modelMapper.map(customer, CustomerEntity.class));
+    }
+
+    @Override
+    public void delete(Integer id) {
+        customerRepository.deleteById(id);
     }
 }

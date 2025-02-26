@@ -1,11 +1,9 @@
 package edu.icet.crn.controller;
 
-import edu.icet.crn.dto.Item;
-import edu.icet.crn.service.HomeService;
+import edu.icet.crn.dto.Order;
+import edu.icet.crn.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/home")
@@ -13,7 +11,11 @@ import java.util.List;
 @CrossOrigin
 public class HomeController {
 
-    final HomeService homeService;
+    final OrderService orderService;
 
+    @PostMapping("/addOrder")
+    public void addOrder(@RequestBody Order order) {
+        orderService.addOrder(order);
+    }
 
 }

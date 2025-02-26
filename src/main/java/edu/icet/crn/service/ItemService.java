@@ -13,4 +13,8 @@ public interface ItemService {
     List<Item> getAll();
 
     void update(Item item);
+
+    void delete(Integer id);
+
+    Item findById(Integer id);
 }

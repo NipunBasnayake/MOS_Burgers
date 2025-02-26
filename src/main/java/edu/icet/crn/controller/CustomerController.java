@@ -24,4 +24,14 @@ public class CustomerController {
     public List<Customer> getAllCustomers() {
         return customerService.getAll();
     }
+
+    @PostMapping("/update")
+    public void updateCustomer(@RequestBody Customer customer) {
+        customerService.update(customer);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteCustomer(@RequestBody Integer id) {
+        customerService.delete(id);
+    }
 }

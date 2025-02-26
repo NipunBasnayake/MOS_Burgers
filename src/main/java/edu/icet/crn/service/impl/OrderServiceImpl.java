@@ -1,0 +1,49 @@
+package edu.icet.crn.service.impl;
+
+import edu.icet.crn.dto.Order;
+import edu.icet.crn.dto.OrderDetail;
+import edu.icet.crn.entity.ItemEntity;
+import edu.icet.crn.entity.OrderDetailEntity;
+import edu.icet.crn.entity.OrderEntity;
+import edu.icet.crn.repository.ItemRepository;
+import edu.icet.crn.repository.OrderDetailRepository;
+import edu.icet.crn.repository.OrderRepository;
+import edu.icet.crn.service.OrderService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class OrderServiceImpl implements OrderService {
+
+    private final OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
+    private final ItemRepository itemRepository;
+    private final ModelMapper modelMapper;
+
+    @Override
+    public void addOrder(Order order) {
+        OrderEntity orderEntity = modelMapper.map(order, OrderEntity.class);
+        orderRepository.save(orderEntity);
+
+        for (OrderDetail orderDetail : order.getDetails()) {
+            OrderDetailEntity orderDetailEntity = modelMapper.map(orderDetail, OrderDetailEntity.class);
+
+            ItemEntity itemEntity = itemRepository.findById(orderDetail.getItemId())
+                    .orElseThrow(() -> new RuntimeException("Item not found with ID: " + orderDetail.getItemId()));
+
+            itemEntity.reduceStock(orderDetail.getQuantity());
+            itemRepository.save(itemEntity);
+
+            orderDetailEntity.setOrder(orderEntity);
+            orderDetailEntity.setItem(itemEntity);
+
+            orderDetailRepository.save(orderDetailEntity);
+        }
+    }
+
+}
+
