@@ -86,9 +86,9 @@ The MOS Burgers project is a full-stack web application designed to streamline t
 ## **Screenshots**
 
 ![Home Page](Screenshots/home.png)
-![Item Management](Screenshots/item.png)
+![Item Management](Screenshots/items.png)
 ![Customer Management](Screenshots/customer.png)
-![Order Management](Screenshots/order.png)
+![Order Management](Screenshots/orders.png)
 
 ---
 
