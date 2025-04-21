@@ -353,18 +353,18 @@ function userDetails() {
     const isAdmin = currentUser.role === 'admin';
 
     let htmlContent = `
-        <div class="user-details-container">
-            <div class="mb-3">
-                <label>Name:</label>
-                <input type="text" class="form-control" value="${currentUser.name || ''}" readonly>
+        <div class="user-details-container" style="text-align: left;">
+            <div class="mb-3 d-flex">
+                <label style="font-weight: bold; min-width: 70px;">Name :</label>
+                <span>${currentUser.name || ''}</span>
             </div>
-            <div class="mb-3">
-                <label>Email:</label>
-                <input type="text" class="form-control" value="${currentUser.email || ''}" readonly>
+            <div class="mb-3 d-flex">
+                <label style="font-weight: bold; min-width: 70px;">Email :</label>
+                <span>${currentUser.email || ''}</span>
             </div>
-            <div class="mb-3">
-                <label>Role:</label>
-                <input type="text" class="form-control" value="${currentUser.role || 'Cashier'}" readonly>
+            <div class="mb-3 d-flex">
+                <label style="font-weight: bold; min-width: 70px;">Role :</label>
+                <span>${currentUser.role || 'Cashier'}</span>
             </div>
     `;
 
