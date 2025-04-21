@@ -9,8 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -20,18 +18,23 @@ public class LoginServiceImpl implements LoginService {
     final ModelMapper modelMapper;
 
     @Override
-    public void signUp(User user) {
-        loginRepository.save(modelMapper.map(user, UserEntity.class));
+    public boolean signUp(User user) {
+        if (loginRepository.existsById(user.getId())) {
+            return false;
+        }
+        UserEntity userEntity = loginRepository.save(modelMapper.map(user, UserEntity.class));
+        return loginRepository.existsById(userEntity.getId());
     }
 
     @Override
-    public boolean logIn(String email, String password) {
-        List<UserEntity> byEmail = loginRepository.findByEmail(email);
-        for (UserEntity user : byEmail) {
-            if (user.getPassword().equals(password)) {
-                return true;
-            }
+    public User logIn(String email, String password) {
+        UserEntity user = loginRepository.findByEmail(email);
+        assert user != null;
+        if (user.getPassword().equals(password)) {
+            User mapped = modelMapper.map(user, User.class);
+            mapped.setPassword("xxxxxxxx");
+            return mapped;
         }
-        return false;
+        return null;
     }
 }
