@@ -19,7 +19,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public boolean signUp(User user) {
-        if (loginRepository.existsById(user.getId())) {
+        if (user.getId() != null) {
             return false;
         }
         UserEntity userEntity = loginRepository.save(modelMapper.map(user, UserEntity.class));
@@ -32,7 +32,7 @@ public class LoginServiceImpl implements LoginService {
         assert user != null;
         if (user.getPassword().equals(password)) {
             User mapped = modelMapper.map(user, User.class);
-            mapped.setPassword("xxxxxxxx");
+            mapped.setPassword(null);
             return mapped;
         }
         return null;
