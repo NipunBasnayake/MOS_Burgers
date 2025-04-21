@@ -22,5 +22,4 @@ public class HomeController {
     public Integer getLastOrderId() {
         return orderService.getLastOrderId();
     }
-
 }

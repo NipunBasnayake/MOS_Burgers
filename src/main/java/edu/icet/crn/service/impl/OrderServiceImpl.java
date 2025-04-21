@@ -71,7 +71,6 @@ public class OrderServiceImpl implements OrderService {
         List<Order> orders = new ArrayList<>();
 
         for (OrderEntity order : orderEntities) {
-
             Order newOrder = modelMapper.map(order, Order.class);
 
             for (OrderDetailEntity orderDetail : orderDetailEntities) {
@@ -83,7 +82,5 @@ public class OrderServiceImpl implements OrderService {
         }
         return orders;
     }
-
-
 }
 

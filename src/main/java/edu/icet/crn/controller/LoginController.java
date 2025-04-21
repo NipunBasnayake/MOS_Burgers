@@ -16,7 +16,6 @@ public class LoginController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@RequestBody User user) {
-        System.out.println(user.toString());
         boolean success = loginService.signUp(user);
         if (success) {
             return ResponseEntity.ok("User registered successfully");
